@@ -41,11 +41,11 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyHolder myHolder, int i) {
 
-        String hisUID = usersList.get(i).getUid();
+        final String hisUID = usersList.get(i).getUid();
 
         String userImage = usersList.get(i).getImage();
         String userName = usersList.get(i).getName();
-        String userEmail = usersList.get(i).getEmail();
+        final String userEmail = usersList.get(i).getEmail();
 
         myHolder.mNameTv.setText(userName);
         myHolder.mEmailTv.setText(userEmail);
