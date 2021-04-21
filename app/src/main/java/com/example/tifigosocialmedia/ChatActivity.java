@@ -7,10 +7,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,8 +35,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 public class ChatActivity extends AppCompatActivity {
@@ -99,13 +103,27 @@ public class ChatActivity extends AppCompatActivity {
 
         Query userQuery = usersDbRef.orderByChild("uid").equalTo(hisUid);
         userQuery.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     String name =""+ ds.child("name").getValue();
                     hisImage =""+ ds.child("image").getValue();
 
+                    String onlineStatus = ""+ ds.child("onlineStatus").getValue();
+
+                    if (onlineStatus.equals("online")){
+                        userStatusTv.setText(onlineStatus);
+                    }else {
+                        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+                        cal.setTimeInMillis(Long.parseLong(onlineStatus));
+                        String dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString();
+
+                        userStatusTv.setText("Last seen at: "+ dateTime);
+                    }
+
                     nameTv.setText(name);
+
 
                     try {
                         Picasso.get().load(hisImage).placeholder(R.drawable.ic_default_img_white).into(profileIv);
@@ -233,16 +251,40 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    private void checkOnlineStatus(String status){
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users").child(myUid);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("onlineStatus", status);
+
+
+        dbRef.updateChildren(hashMap);
+    }
+
     @Override
     protected void onStart() {
         checkUserStatus();
+
+        checkOnlineStatus("online");
         super.onStart();
     }
 
     @Override
     protected void onPause() {
-        userRefForSeen.removeEventListener(seenListener);
         super.onPause();
+
+        String timestamp = String.valueOf(System.currentTimeMillis());
+
+        checkOnlineStatus(timestamp);
+
+        userRefForSeen.removeEventListener(seenListener);
+    }
+
+    @Override
+    protected void onResume() {
+
+        checkOnlineStatus("online");
+
+        super.onResume();
     }
 
     @Override
