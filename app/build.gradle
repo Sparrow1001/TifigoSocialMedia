@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.tifigosocialmedia"
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -45,10 +45,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.7.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-storage:19.2.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     implementation 'com.github.atifsayings:CircularImageView:1.0.1'
+    implementation 'com.google.firebase:firebase-messaging:21.1.0'
 
-    compile 'com.rengwuxian.materialedittext:library:2.1.4'
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     testImplementation 'junit:junit:4.+'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:22.2.0'
