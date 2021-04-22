@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tifigosocialmedia.AddPostActivity;
 import com.example.tifigosocialmedia.MainActivity;
 import com.example.tifigosocialmedia.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -345,7 +346,7 @@ public class ProfileFragment extends Fragment {
 
                 if (grantResults.length > 0){
 
-                    boolean writeStorageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean writeStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     if (writeStorageAccepted){
                         pickFromGallery();
                     }
@@ -375,7 +376,7 @@ public class ProfileFragment extends Fragment {
                 uploadProfileCoverPhoto(image_uri);
 
             }
-            if (requestCode == IMAGE_PICK_CAMERA_CODE){
+            else if (requestCode == IMAGE_PICK_CAMERA_CODE){
 
                 uploadProfileCoverPhoto(image_uri);
 
@@ -481,6 +482,9 @@ public class ProfileFragment extends Fragment {
         if (id == R.id.action_logout){
             firebaseAuth.signOut();
             checkUserStatus();
+        }
+        if (id == R.id.action_add_post){
+            startActivity(new Intent(getActivity(), AddPostActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

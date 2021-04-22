@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.tifigosocialmedia.AddPostActivity;
 import com.example.tifigosocialmedia.MainActivity;
 import com.example.tifigosocialmedia.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,6 +68,9 @@ public class HomeFragment extends Fragment {
         if (id == R.id.action_logout){
             firebaseAuth.signOut();
             checkUserStatus();
+        }
+        if (id == R.id.action_add_post){
+            startActivity(new Intent(getActivity(), AddPostActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
