@@ -31,6 +31,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
 
@@ -72,7 +73,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
         String message = chatList.get(i).getMessage();
         String timeStamp = chatList.get(i).getTimeStamp();
 
-        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        Calendar cal = Calendar.getInstance(Locale.GERMAN);
         cal.setTimeInMillis(Long.parseLong(timeStamp));
         String dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString();
 

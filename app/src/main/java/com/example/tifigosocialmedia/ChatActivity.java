@@ -48,6 +48,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -137,7 +138,7 @@ public class ChatActivity extends AppCompatActivity {
                         if (onlineStatus.equals("online")){
                             userStatusTv.setText(onlineStatus);
                         }else {
-                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+                            Calendar cal = Calendar.getInstance(Locale.GERMAN);
                             cal.setTimeInMillis(Long.parseLong(onlineStatus));
                             String dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString();
 

@@ -112,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
                     hashMap.put("image", "");
                     hashMap.put("cover", "");
 
-                    FirebaseDatabase database =FirebaseDatabase.getInstance();
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference reference = database.getReference("Users");
 
                     reference.child(uid).setValue(hashMap);
