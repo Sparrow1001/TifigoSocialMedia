@@ -1,6 +1,8 @@
 package com.example.tifigosocialmedia.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tifigosocialmedia.ChatActivity;
 import com.example.tifigosocialmedia.Models.ModelUsers;
 import com.example.tifigosocialmedia.R;
+import com.example.tifigosocialmedia.ThereProfileActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -61,9 +64,26 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
         myHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ChatActivity.class);
-                intent.putExtra("hisUid", hisUID);
-                context.startActivity(intent);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setItems(new String[]{"Profile", "Chat"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 0){
+                            //profile
+                            Intent intent = new Intent(context, ThereProfileActivity.class);
+                            intent.putExtra("uid", hisUID);
+                            context.startActivity(intent);
+                        }
+                        if (which == 1){
+                            //chat
+                            Intent intent = new Intent(context, ChatActivity.class);
+                            intent.putExtra("hisUid", hisUID);
+                            context.startActivity(intent);
+                        }
+                    }
+                });
+                builder.create().show();
             }
         });
 
