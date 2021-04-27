@@ -87,8 +87,8 @@ public class ProfileFragment extends Fragment {
     private  static final int IMAGE_PICK_GALLERY_CODE = 300;
     private  static final int IMAGE_PICK_CAMERA_CODE = 400;
     
-    String cameraPermissions[];
-    String storagePermissions[];
+    String[] cameraPermissions;
+    String[] storagePermissions;
 
     List<ModelPost> postList;
     AdapterPosts adapterPosts;
@@ -280,7 +280,7 @@ public class ProfileFragment extends Fragment {
 
     private void showEditProfileDialog() {
 
-        String options[] = {"Изменить фотографию профиля", "Изменить шапку", "Изменить имя", "Изменить телефон"};
+        String[] options = {"Изменить фотографию профиля", "Изменить шапку", "Изменить имя", "Изменить телефон"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Выберите действие");
@@ -396,7 +396,7 @@ public class ProfileFragment extends Fragment {
 
     private void showImagePicDialog() {
 
-        String options[] = {"Камера", "Галлерея"};
+        String[] options = {"Камера", "Галлерея"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Выберите картинку из");
