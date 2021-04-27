@@ -70,6 +70,8 @@ public class AddPostActivity extends AppCompatActivity {
 
     String name, email, uid, dp;
 
+    String pLikes = "0";
+
     String editTitle, editDescription, editImage;
 
     Uri image_uri = null;
@@ -194,6 +196,7 @@ public class AddPostActivity extends AppCompatActivity {
         hashMap.put("pTitle", title);
         hashMap.put("pDescr", description);
         hashMap.put("pImage", "noImage");
+
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
         ref.child(editPostId).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -404,6 +407,8 @@ public class AddPostActivity extends AppCompatActivity {
                                 hashMap.put("pDescr", description);
                                 hashMap.put("pImage", downloadUri);
                                 hashMap.put("pTime", timeStamp);
+                                hashMap.put("pLikes", pLikes);
+
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
 
@@ -447,6 +452,7 @@ public class AddPostActivity extends AppCompatActivity {
             hashMap.put("pDescr", description);
             hashMap.put("pImage", "noImage");
             hashMap.put("pTime", timeStamp);
+            hashMap.put("pLikes", pLikes);
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
 
