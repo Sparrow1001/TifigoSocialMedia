@@ -1,18 +1,26 @@
 package com.example.tifigosocialmedia.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tifigosocialmedia.Models.ModelComment;
 import com.example.tifigosocialmedia.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -23,10 +31,13 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
 
     Context context;
     List<ModelComment> commentList;
+    String myUid, postId;
 
-    public AdapterComments(Context context, List<ModelComment> commentList) {
+    public AdapterComments(Context context, List<ModelComment> commentList, String myUid, String postId) {
         this.context = context;
         this.commentList = commentList;
+        this.myUid = myUid;
+        this.postId = postId;
     }
 
     @NonNull
@@ -58,10 +69,53 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
 
         try{
             Picasso.get().load(image).placeholder(R.drawable.ic_default_img).into(myHolder.avatarIv);
-        }catch (Exception e){
+        }catch (Exception e){ }
 
-        }
+        myHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (myUid.equals(uid)){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
+                    builder.setTitle("Delete");
+                    builder.setMessage("Вы точно хотите удалить комментарий?");
+                    builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            deleteComment(cid);
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.create().show();
+                }else {
+                    Toast.makeText(context, "Вы не можете удалять чужие комментарии", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
+    }
+
+    private void deleteComment(String cid) {
+        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts").child(postId);
+        ref.child("Comments").child(cid).removeValue();
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String comments = ""+dataSnapshot.child("pComments").getValue();
+                int newCommentVal = Integer.parseInt(comments) - 1;
+                ref.child("pComments").setValue(""+newCommentVal);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override

@@ -153,7 +153,9 @@ public class PostDetailActivity extends AppCompatActivity {
 
                     commentList.add(modelComment);
 
-                    adapterComments = new AdapterComments(getApplicationContext(), commentList);
+
+
+                    adapterComments = new AdapterComments(getApplicationContext(), commentList, myUid, postId);
                     recyclerView.setAdapter(adapterComments);
                 }
             }
@@ -433,7 +435,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     pDescriptionTv.setText(pDescr);
                     pLikesTv.setText(pLikes + " Likes");
                     pTimeTv.setText(pTime);
-                    pCommentsTv.setText(commentsCount + "Comments");
+                    pCommentsTv.setText(commentsCount + " Comments");
 
                     uNameTv.setText(hisName);
 
