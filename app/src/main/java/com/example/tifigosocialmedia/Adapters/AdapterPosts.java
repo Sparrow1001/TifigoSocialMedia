@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.text.format.DateFormat;
 import android.view.Gravity;
@@ -22,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tifigosocialmedia.AddPostActivity;
@@ -42,6 +46,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -181,7 +187,16 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         myHolder.shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Share", Toast.LENGTH_SHORT).show();
+                BitmapDrawable bitmapDrawable = (BitmapDrawable)myHolder.pImageIv.getDrawable();
+                if(bitmapDrawable == null){
+                    //without image
+                    shareTextOnly(pTitle, pDescription);
+                }
+                else{
+                    //with image
+                    Bitmap bitmap = bitmapDrawable.getBitmap();
+                    shareImageAndText(pTitle, pDescription, bitmap);
+                }
             }
 
         });
@@ -197,6 +212,50 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
     }
 
+    private void shareTextOnly(String pTitle, String pDescription) {
+        String shareBody = pTitle + "\n" + pDescription;
+
+        Intent sIntent = new Intent(Intent.ACTION_SEND);
+        sIntent.setType("text/plain");
+        sIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here"); //in case you share via an email app
+        sIntent.putExtra(Intent.EXTRA_TEXT, shareBody); //text to share
+        context.startActivity(Intent.createChooser(sIntent, "Share Via")); //message to share in dialog
+    }
+
+    private void shareImageAndText(String pTitle, String pDescription, Bitmap bitmap) {
+        //concatenate title and description to share
+        String shareBody = pTitle + "\n" + pDescription;
+
+        //save image in cache
+        Uri uri = saveImageToShare(bitmap);
+
+        //share intent
+        Intent sIntent = new Intent(Intent.ACTION_SEND);
+        sIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        sIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+        sIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
+        sIntent.setType("image/png");
+        context.startActivity(Intent.createChooser(sIntent, "Share Via"));
+    }
+
+    private Uri saveImageToShare(Bitmap bitmap) {
+        File imageFolder = new File(context.getCacheDir(), "images");
+        Uri uri = null;
+        try{
+            imageFolder.mkdirs();//create if not exists
+            File file = new File(imageFolder, "shared_image.png");
+
+            FileOutputStream stream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
+            stream.flush();
+            stream.close();
+            uri = FileProvider.getUriForFile(context, "com.example.tifigosocialmedia.fileprovider", file);
+
+        }catch (Exception e){
+            Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        return uri;
+    }
 
 
     private void setLikes(MyHolder holder, String postKey) {
