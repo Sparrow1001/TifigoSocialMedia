@@ -37,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -233,6 +234,7 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                assert account != null;
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
@@ -251,15 +253,16 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            if (task.getResult().getAdditionalUserInfo().isNewUser()){
+                            if (Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getAdditionalUserInfo()).isNewUser()){
                                 assert user != null;
                                 String email = user.getEmail();
                                 String uid = user.getUid();
+                                String name = user.getDisplayName();
 
                                 HashMap<Object, String> hashMap = new HashMap<>();
                                 hashMap.put("email", email);
                                 hashMap.put("uid", uid);
-                                hashMap.put("name", "");
+                                hashMap.put("name", name);
                                 hashMap.put("onlineStatus", "online");
                                 hashMap.put("typingTo", "noOne");
                                 hashMap.put("phone", "");

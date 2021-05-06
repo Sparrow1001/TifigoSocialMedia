@@ -71,6 +71,7 @@ public class AddPostActivity extends AppCompatActivity {
     String name, email, uid, dp;
 
     String pLikes = "0";
+    String pComments = "0";
 
     String editTitle, editDescription, editImage;
 
@@ -408,6 +409,7 @@ public class AddPostActivity extends AppCompatActivity {
                                 hashMap.put("pImage", downloadUri);
                                 hashMap.put("pTime", timeStamp);
                                 hashMap.put("pLikes", pLikes);
+                                hashMap.put("pComments", pComments);
 
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
@@ -453,6 +455,7 @@ public class AddPostActivity extends AppCompatActivity {
             hashMap.put("pImage", "noImage");
             hashMap.put("pTime", timeStamp);
             hashMap.put("pLikes", pLikes);
+            hashMap.put("pComments", pComments);
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
 

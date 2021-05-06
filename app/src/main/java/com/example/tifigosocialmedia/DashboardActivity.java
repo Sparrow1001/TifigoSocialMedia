@@ -38,6 +38,7 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setTitle("Profile");
 
         firebaseAuth = FirebaseAuth.getInstance();
