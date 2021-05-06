@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment {
     private void checkUserStatus(){
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null){
-            //mProfileTv.setText(user.getEmail());
+
 
         } else{
             startActivity(new Intent(getActivity(), MainActivity.class));
