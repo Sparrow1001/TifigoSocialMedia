@@ -3,17 +3,18 @@ package com.example.tifigosocialmedia.Models;
 import com.google.firebase.database.PropertyName;
 
 public class ModelChat {
-    String message, receiver, sender, timeStamp;
+    String message, receiver, sender, timeStamp, type;
     boolean isSeen;
 
     public ModelChat() {
     }
 
-    public ModelChat(String message, String receiver, String sender, String timeStamp, boolean isSeen) {
+    public ModelChat(String message, String receiver, String sender, String timeStamp, String type, boolean isSeen) {
         this.message = message;
         this.receiver = receiver;
         this.sender = sender;
         this.timeStamp = timeStamp;
+        this.type = type;
         this.isSeen = isSeen;
     }
 
@@ -49,12 +50,18 @@ public class ModelChat {
         this.timeStamp = timeStamp;
     }
 
-    @PropertyName("isSeen")
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public boolean isSeen() {
         return isSeen;
     }
 
-    @PropertyName("isSeen")
     public void setSeen(boolean seen) {
         isSeen = seen;
     }

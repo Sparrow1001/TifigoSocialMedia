@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginStart="20dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginLeft="20dp">
 
             <TextView
                 android:id="@+id/nameTv"
@@ -65,6 +66,13 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:background="@color/white">
+
+        <ImageButton
+            android:id="@+id/attachBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:src="@drawable/ic_attach_black"/>
 
         <EditText
             android:id="@+id/messageEt"
