@@ -38,6 +38,7 @@ import com.example.tifigosocialmedia.AddPostActivity;
 import com.example.tifigosocialmedia.MainActivity;
 import com.example.tifigosocialmedia.Models.ModelPost;
 import com.example.tifigosocialmedia.R;
+import com.example.tifigosocialmedia.SettingsActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -702,9 +703,13 @@ public class ProfileFragment extends Fragment {
             firebaseAuth.signOut();
             checkUserStatus();
         }
-        if (id == R.id.action_add_post){
+        else if (id == R.id.action_add_post){
             startActivity(new Intent(getActivity(), AddPostActivity.class));
         }
+        else if(id == R.id.action_settings){
+            startActivity(new Intent(getActivity(), SettingsActivity.class));
+        }
+
 
         return super.onOptionsItemSelected(item);
     }

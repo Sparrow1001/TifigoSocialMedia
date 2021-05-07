@@ -24,6 +24,7 @@ import com.example.tifigosocialmedia.DashboardActivity;
 import com.example.tifigosocialmedia.MainActivity;
 import com.example.tifigosocialmedia.Models.ModelUsers;
 import com.example.tifigosocialmedia.R;
+import com.example.tifigosocialmedia.SettingsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -212,6 +213,9 @@ public class UsersFragment extends Fragment {
         if (id == R.id.action_logout){
             firebaseAuth.signOut();
             checkUserStatus();
+        }
+        else if(id == R.id.action_settings){
+            startActivity(new Intent(getActivity(), SettingsActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

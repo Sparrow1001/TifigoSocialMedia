@@ -564,7 +564,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     Token token = ds.getValue(Token.class);
-                    Data data = new Data(myUid, name+": "+message, "Новое сообщение", hisUid, R.drawable.ic_default_img);
+                    Data data = new Data(""+myUid, ""+name+": "+message, "Новое сообщение", ""+hisUid, "ChatNotification", R.drawable.ic_default_img);
 
                     assert token != null;
                     Sender sender = new Sender(data, token.getToken());

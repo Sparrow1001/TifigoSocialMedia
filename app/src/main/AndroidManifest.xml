@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PostDetailActivity"></activity>
+        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".PostDetailActivity" />
         <activity android:name=".ThereProfileActivity" />
         <activity android:name=".AddPostActivity" />
         <activity
@@ -43,17 +44,14 @@
         </service>
 
         <provider
-            android:authorities="com.example.tifigosocialmedia.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.tifigosocialmedia.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/paths"
-                />
-
+                android:resource="@xml/paths" />
         </provider>
-
     </application>
 
 </manifest>
