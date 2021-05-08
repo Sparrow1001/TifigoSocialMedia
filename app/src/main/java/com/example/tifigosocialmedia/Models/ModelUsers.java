@@ -3,12 +3,13 @@ package com.example.tifigosocialmedia.Models;
 public class ModelUsers {
 
     String name, email, search, phone, image, cover, uid, onlineStatus, typingTo;
+    boolean isBlocked = false, isAdmin = false;
 
 
     public ModelUsers() {
     }
 
-    public ModelUsers(String name, String email, String search, String phone, String image, String cover, String uid, String onlineStatus, String typingTo) {
+    public ModelUsers(String name, String email, String search, String phone, String image, String cover, String uid, String onlineStatus, String typingTo, boolean isBlocked, boolean isAdmin) {
         this.name = name;
         this.email = email;
         this.search = search;
@@ -18,6 +19,8 @@ public class ModelUsers {
         this.uid = uid;
         this.onlineStatus = onlineStatus;
         this.typingTo = typingTo;
+        this.isBlocked = isBlocked;
+        this.isAdmin = isAdmin;
     }
 
     public String getName() {
@@ -90,5 +93,21 @@ public class ModelUsers {
 
     public void setTypingTo(String typingTo) {
         this.typingTo = typingTo;
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }

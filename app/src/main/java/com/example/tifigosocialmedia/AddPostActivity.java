@@ -604,7 +604,6 @@ public class AddPostActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this ,storagePermissions, STORAGE_REQUEST_CODE);
     }
 
-
     private boolean checkCameraPermission(){
         boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == (PackageManager.PERMISSION_GRANTED);
@@ -622,7 +621,6 @@ public class AddPostActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         checkUserStatus();
-
     }
 
     @Override
@@ -653,7 +651,6 @@ public class AddPostActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
 
         menu.findItem(R.id.action_add_post).setVisible(false);
         menu.findItem(R.id.action_search).setVisible(false);
