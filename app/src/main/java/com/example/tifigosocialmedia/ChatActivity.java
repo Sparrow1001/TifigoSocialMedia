@@ -138,7 +138,8 @@ public class ChatActivity extends AppCompatActivity {
         sendBtn = findViewById(R.id.sendBtn);
         attachBtn = findViewById(R.id.attachBtn);
 
-        cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission
+                .WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -180,7 +181,8 @@ public class ChatActivity extends AppCompatActivity {
                         }else {
                             Calendar cal = Calendar.getInstance(Locale.GERMAN);
                             cal.setTimeInMillis(Long.parseLong(onlineStatus));
-                            String dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString();
+                            String dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa",
+                                    cal).toString();
 
                             userStatusTv.setText("Last seen at: "+ dateTime);
                         }
@@ -191,7 +193,8 @@ public class ChatActivity extends AppCompatActivity {
 
 
                     try {
-                        Picasso.get().load(hisImage).placeholder(R.drawable.ic_default_img_white).into(profileIv);
+                        Picasso.get().load(hisImage).placeholder(R.drawable.ic_default_img_white)
+                                .into(profileIv);
                     }catch (Exception e){
                         Picasso.get().load(R.drawable.ic_default_img_white).into(profileIv);
                     }
@@ -293,7 +296,6 @@ public class ChatActivity extends AppCompatActivity {
 
                     }
                 });
-
     }
 
     private void blockUser() {
@@ -306,14 +308,16 @@ public class ChatActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(ChatActivity.this, "Blocked Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChatActivity.this, "Blocked Successfully",
+                                Toast.LENGTH_SHORT).show();
 
                         blockIv.setImageResource(R.drawable.ic_block_red);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ChatActivity.this, "Failed"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChatActivity.this, "Failed"+e.getMessage(),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -331,14 +335,18 @@ public class ChatActivity extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast.makeText(ChatActivity.this, "Unblocked Successfully", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(ChatActivity.this,
+                                                        "Unblocked Successfully",
+                                                        Toast.LENGTH_SHORT).show();
                                                 blockIv.setImageResource(R.drawable.ic_unblock_green);
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(ChatActivity.this, "Failed"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(ChatActivity.this,
+                                                        "Failed"+e.getMessage(),
+                                                        Toast.LENGTH_SHORT).show();
                                             }
                                         });
                             }
@@ -404,7 +412,8 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private boolean checkStoragePermission(){
-        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        boolean result = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == (PackageManager.PERMISSION_GRANTED);
         return result;
     }
@@ -418,7 +427,8 @@ public class ChatActivity extends AppCompatActivity {
         boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == (PackageManager.PERMISSION_GRANTED);
 
-        boolean result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        boolean result1 = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == (PackageManager.PERMISSION_GRANTED);
         return result && result1;
     }
@@ -504,7 +514,8 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-        final DatabaseReference database = FirebaseDatabase.getInstance().getReference("Users").child(myUid);
+        final DatabaseReference database = FirebaseDatabase.getInstance()
+                .getReference("Users").child(myUid);
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -522,7 +533,8 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        final DatabaseReference chatRef1 = FirebaseDatabase.getInstance().getReference("Chatlist")
+        final DatabaseReference chatRef1 = FirebaseDatabase.getInstance()
+                .getReference("Chatlist")
                 .child(myUid).child(hisUid);
 
         chatRef1.addValueEventListener(new ValueEventListener() {
@@ -539,7 +551,8 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        final DatabaseReference chatRef2 = FirebaseDatabase.getInstance().getReference("Chatlist")
+        final DatabaseReference chatRef2 = FirebaseDatabase.getInstance()
+                .getReference("Chatlist")
                 .child(hisUid).child(myUid);
 
         chatRef2.addValueEventListener(new ValueEventListener() {
@@ -594,14 +607,16 @@ public class ChatActivity extends AppCompatActivity {
 
                     databaseReference.child("Chats").push().setValue(hashMap);
 
-                    DatabaseReference database = FirebaseDatabase.getInstance().getReference("Users").child(myUid);
+                    DatabaseReference database = FirebaseDatabase.getInstance()
+                            .getReference("Users").child(myUid);
                     database.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             ModelUsers user = dataSnapshot.getValue(ModelUsers.class);
 
                             if (notify){
-                                sendNotification(hisUid, user.getName(), "Sent you a photo...");
+                                sendNotification(hisUid, user.getName(),
+                                        "Sent you a photo...");
                             }
                             notify = false;
                         }
@@ -612,7 +627,8 @@ public class ChatActivity extends AppCompatActivity {
                         }
                     });
 
-                    final DatabaseReference chatRef1 = FirebaseDatabase.getInstance().getReference("Chatlist")
+                    final DatabaseReference chatRef1 = FirebaseDatabase.getInstance()
+                            .getReference("Chatlist")
                             .child(myUid).child(hisUid);
 
                     chatRef1.addValueEventListener(new ValueEventListener() {
@@ -629,7 +645,8 @@ public class ChatActivity extends AppCompatActivity {
                         }
                     });
 
-                    final DatabaseReference chatRef2 = FirebaseDatabase.getInstance().getReference("Chatlist")
+                    final DatabaseReference chatRef2 = FirebaseDatabase.getInstance()
+                            .getReference("Chatlist")
                             .child(hisUid).child(myUid);
 
                     chatRef2.addValueEventListener(new ValueEventListener() {
@@ -665,14 +682,21 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     Token token = ds.getValue(Token.class);
-                    Data data = new Data(""+myUid, ""+name+": "+message, "Новое сообщение", ""+hisUid, "ChatNotification", R.drawable.ic_default_img);
+                    Data data = new Data(""+myUid,
+                            ""+name+": "+message,
+                            "Новое сообщение",
+                            ""+hisUid,
+                            "ChatNotification",
+                            R.drawable.ic_default_img);
 
                     assert token != null;
                     Sender sender = new Sender(data, token.getToken());
 
                     try {
                         JSONObject senderJsonObj = new JSONObject(new Gson().toJson(sender));
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("https://fcm.googleapis.com/fcm/send", senderJsonObj, new Response.Listener<JSONObject>() {
+                        JsonObjectRequest jsonObjectRequest =
+                                new JsonObjectRequest("https://fcm.googleapis.com/fcm/send",
+                                        senderJsonObj, new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Log.d("JSON_RESPONSE", "onResponse: "+response.toString());
@@ -722,7 +746,8 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void checkOnlineStatus(String status){
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users").child(myUid);
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users")
+                .child(myUid);
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("onlineStatus", status);
 
@@ -731,7 +756,8 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void checkTypingStatus(String typing){
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users").child(myUid);
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users")
+                .child(myUid);
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("typingTo", typing);
 
@@ -768,7 +794,8 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
 
         switch (requestCode){
 
@@ -780,7 +807,9 @@ public class ChatActivity extends AppCompatActivity {
                         pickFromCamera();
                     }
                     else{
-                        Toast.makeText(this, "Please enable camera & storage permission", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this,
+                                "Please enable camera & storage permission",
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -790,12 +819,14 @@ public class ChatActivity extends AppCompatActivity {
 
                 if (grantResults.length > 0){
 
-                    boolean writeStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean writeStorageAccepted = grantResults[0] == PackageManager
+                            .PERMISSION_GRANTED;
                     if (writeStorageAccepted){
                         pickFromGallery();
                     }
                     else{
-                        Toast.makeText(this, "Please enable storage permission", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Please enable storage permission",
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
 
