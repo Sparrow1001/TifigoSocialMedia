@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tifigosocialmedia.AddPostActivity;
 import com.example.tifigosocialmedia.Models.ModelPost;
 import com.example.tifigosocialmedia.PostDetailActivity;
+import com.example.tifigosocialmedia.PostLikedByActivity;
 import com.example.tifigosocialmedia.R;
 import com.example.tifigosocialmedia.ThereProfileActivity;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -212,6 +213,16 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                 context.startActivity(intent);
             }
         });
+
+        myHolder.pLikesTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PostLikedByActivity.class);
+                intent.putExtra("postId", pId);
+                context.startActivity(intent);
+            }
+        });
+
 
     }
 
