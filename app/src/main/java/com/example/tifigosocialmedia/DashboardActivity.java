@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.tifigosocialmedia.Fragments.ChatListFragment;
 import com.example.tifigosocialmedia.Fragments.HomeFragment;
+import com.example.tifigosocialmedia.Fragments.NotificationsFragment;
 import com.example.tifigosocialmedia.Fragments.ProfileFragment;
 import com.example.tifigosocialmedia.Fragments.UsersFragment;
 import com.example.tifigosocialmedia.Notifications.Token;
@@ -104,6 +105,14 @@ public class DashboardActivity extends AppCompatActivity {
                             FragmentTransaction ft4 = getSupportFragmentManager().beginTransaction();
                             ft4.replace(R.id.content, fragment4, "");
                             ft4.commit();
+                            return  true;
+
+                        case R.id.nav_notification:
+                            actionBar.setTitle("Notifications");
+                            NotificationsFragment fragment5 = new NotificationsFragment();
+                            FragmentTransaction ft5 = getSupportFragmentManager().beginTransaction();
+                            ft5.replace(R.id.content, fragment5, "");
+                            ft5.commit();
                             return  true;
                     }
 
