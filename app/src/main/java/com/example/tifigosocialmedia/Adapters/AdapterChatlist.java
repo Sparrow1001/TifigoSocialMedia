@@ -38,7 +38,8 @@ public class AdapterChatlist extends RecyclerView.Adapter<AdapterChatlist.MyHold
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_chatlist, viewGroup, false);
+        View view = LayoutInflater.from(context)
+                .inflate(R.layout.row_chatlist, viewGroup, false);
         return new MyHolder(view);
     }
 
@@ -58,7 +59,9 @@ public class AdapterChatlist extends RecyclerView.Adapter<AdapterChatlist.MyHold
             myHolder.lastMessageTv.setText(lastMessage);
         }
         try{
-            Picasso.get().load(userImage).placeholder(R.drawable.ic_default_img).into(myHolder.profileIv);
+            Picasso.get().load(userImage)
+                    .placeholder(R.drawable.ic_default_img)
+                    .into(myHolder.profileIv);
         }catch (Exception e){
             Picasso.get().load(R.drawable.ic_default_img).into(myHolder.profileIv);
         }

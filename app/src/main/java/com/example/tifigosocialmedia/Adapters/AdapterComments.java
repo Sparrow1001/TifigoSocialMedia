@@ -43,7 +43,8 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_comments, viewGroup, false);
+        View view = LayoutInflater.from(context)
+                .inflate(R.layout.row_comments, viewGroup, false);
 
         return new MyHolder(view);
     }
@@ -75,7 +76,8 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
             @Override
             public void onClick(View v) {
                 if (myUid.equals(uid)){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView()
+                            .getContext());
                     builder.setTitle("Delete");
                     builder.setMessage("Вы точно хотите удалить комментарий?");
                     builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
@@ -100,7 +102,9 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
     }
 
     private void deleteComment(String cid) {
-        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts").child(postId);
+        final DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReference("Posts")
+                .child(postId);
         ref.child("Comments").child(cid).removeValue();
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -164,7 +164,10 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                                 likesRef.child(postIde).child(myUid).setValue("Liked");
                                 mProcessLike = false;
 
-                                addToHisNotifications(""+uid, ""+pId, "Liked your post");
+                                addToHisNotifications(
+                                        ""+uid,
+                                        ""+pId,
+                                        "Liked your post");
                             }
                         }
                     }
@@ -400,7 +403,8 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         picRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Query fquery = FirebaseDatabase.getInstance().getReference("Posts").orderByChild("pId").equalTo(pId);
+                Query fquery = FirebaseDatabase.getInstance().getReference("Posts")
+                        .orderByChild("pId").equalTo(pId);
                 fquery.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

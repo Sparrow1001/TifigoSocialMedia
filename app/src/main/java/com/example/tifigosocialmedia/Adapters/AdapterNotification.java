@@ -52,7 +52,8 @@ public class AdapterNotification extends RecyclerView.Adapter<AdapterNotificatio
     @Override
     public HolderNotification onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.row_notification, parent, false);
+        View view = LayoutInflater.from(context)
+                .inflate(R.layout.row_notification, parent, false);
         return new HolderNotification(view);
     }
 
@@ -88,7 +89,9 @@ public class AdapterNotification extends RecyclerView.Adapter<AdapterNotificatio
                             holder.nameTv.setText(name);
 
                             try{
-                                Picasso.get().load(image).placeholder(R.drawable.ic_default_img).into(holder.avatarIv);
+                                Picasso.get().load(image)
+                                        .placeholder(R.drawable.ic_default_img)
+                                        .into(holder.avatarIv);
                             }catch (Exception e){
                                 holder.avatarIv.setImageResource(R.drawable.ic_default_img);
                             }
@@ -123,8 +126,12 @@ public class AdapterNotification extends RecyclerView.Adapter<AdapterNotificatio
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-                        ref.child(firebaseAuth.getUid()).child("Notifications").child(timestamp).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        DatabaseReference ref = FirebaseDatabase.getInstance()
+                                .getReference("Users");
+                        ref.child(firebaseAuth.getUid())
+                                .child("Notifications")
+                                .child(timestamp).removeValue()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(context, "Notification deleted..", Toast.LENGTH_SHORT).show();

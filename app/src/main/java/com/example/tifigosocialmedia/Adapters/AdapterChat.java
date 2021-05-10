@@ -55,12 +55,14 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
 
         if (i == MSG_TYPE_RIGHT){
 
-            View view = LayoutInflater.from(context).inflate(R.layout.row_chat_right, viewGroup, false);
+            View view = LayoutInflater.from(context)
+                    .inflate(R.layout.row_chat_right, viewGroup, false);
             return  new MyHolder(view);
 
         }else {
 
-            View view = LayoutInflater.from(context).inflate(R.layout.row_chat_left, viewGroup, false);
+            View view = LayoutInflater.from(context)
+                    .inflate(R.layout.row_chat_left, viewGroup, false);
             return  new MyHolder(view);
 
         }
@@ -87,7 +89,9 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
             myHolder.messageTv.setVisibility(View.GONE);
             myHolder.messageIv.setVisibility(View.VISIBLE);
 
-            Picasso.get().load(message).placeholder(R.drawable.ic_image_black).into(myHolder.messageIv);
+            Picasso.get().load(message)
+                    .placeholder(R.drawable.ic_image_black)
+                    .into(myHolder.messageIv);
         }
 
         myHolder.messageTv.setText(message);
