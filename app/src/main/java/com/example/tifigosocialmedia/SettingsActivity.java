@@ -18,8 +18,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.sql.Struct;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -29,7 +33,9 @@ public class SettingsActivity extends AppCompatActivity {
     SharedPreferences sp;
     SharedPreferences.Editor editor; //to edit value
 
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
+    String myUid;
 
     private static final String TOPIC_POST_NOTIFICATION = "POST";
 
@@ -110,5 +116,56 @@ public class SettingsActivity extends AppCompatActivity {
                     }
 
                 });
+    }
+
+    private void checkUserStatus(){
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null){
+
+            myUid = user.getUid();
+
+        } else{
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            checkOnlineStatus(timestamp);
+            Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+    }
+
+    private void checkOnlineStatus(String status){
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users")
+                .child(myUid);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("onlineStatus", status);
+
+
+        dbRef.updateChildren(hashMap);
+    }
+
+    @Override
+    public void onStart() {
+        checkUserStatus();
+
+        checkOnlineStatus("online");
+        super.onStart();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        String timestamp = String.valueOf(System.currentTimeMillis());
+
+        checkOnlineStatus(timestamp);
+
+    }
+
+    @Override
+    public void onResume() {
+
+        checkOnlineStatus("online");
+
+        super.onResume();
     }
 }

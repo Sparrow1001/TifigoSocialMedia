@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ThereProfileActivity extends AppCompatActivity {
@@ -44,6 +45,7 @@ public class ThereProfileActivity extends AppCompatActivity {
     List<ModelPost> postList;
     AdapterPosts adapterPosts;
     String uid;
+    String myUid;
 
 
     @Override
@@ -189,11 +191,15 @@ public class ThereProfileActivity extends AppCompatActivity {
     private void checkUserStatus(){
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null){
-            //mProfileTv.setText(firebaseAuth.getEmail());
+
+            myUid = user.getUid();
 
         } else{
-            startActivity(new Intent(this ,MainActivity.class));
-            finish();
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            checkOnlineStatus(timestamp);
+            Intent intent = new Intent(ThereProfileActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
     }
 
@@ -242,5 +248,41 @@ public class ThereProfileActivity extends AppCompatActivity {
             checkUserStatus();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void checkOnlineStatus(String status){
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users")
+                .child(myUid);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("onlineStatus", status);
+
+
+        dbRef.updateChildren(hashMap);
+    }
+
+    @Override
+    public void onStart() {
+        checkUserStatus();
+
+        checkOnlineStatus("online");
+        super.onStart();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        String timestamp = String.valueOf(System.currentTimeMillis());
+
+        checkOnlineStatus(timestamp);
+
+    }
+
+    @Override
+    public void onResume() {
+
+        checkOnlineStatus("online");
+
+        super.onResume();
     }
 }

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import com.example.tifigosocialmedia.Adapters.AdapterUsers;
 import com.example.tifigosocialmedia.Models.ModelUsers;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class PostLikedByActivity extends AppCompatActivity {
@@ -30,6 +32,8 @@ public class PostLikedByActivity extends AppCompatActivity {
     private AdapterUsers adapterUsers;
 
     private FirebaseAuth firebaseAuth;
+
+    String myUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,5 +103,56 @@ public class PostLikedByActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
+    }
+
+    private void checkOnlineStatus(String status){
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users")
+                .child(myUid);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("onlineStatus", status);
+
+
+        dbRef.updateChildren(hashMap);
+    }
+
+    private void checkUserStatus(){
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null){
+
+            myUid = user.getUid();
+
+        } else{
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            checkOnlineStatus(timestamp);
+            Intent intent = new Intent(PostLikedByActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        checkUserStatus();
+
+        checkOnlineStatus("online");
+        super.onStart();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        String timestamp = String.valueOf(System.currentTimeMillis());
+
+        checkOnlineStatus(timestamp);
+
+    }
+
+    @Override
+    public void onResume() {
+
+        checkOnlineStatus("online");
+
+        super.onResume();
     }
 }

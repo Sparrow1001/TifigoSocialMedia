@@ -1,5 +1,6 @@
 package com.example.tifigosocialmedia.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.tifigosocialmedia.Adapters.AdapterNotification;
+import com.example.tifigosocialmedia.MainActivity;
 import com.example.tifigosocialmedia.Models.ModelNotification;
 import com.example.tifigosocialmedia.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class NotificationsFragment extends Fragment {
@@ -30,6 +34,8 @@ public class NotificationsFragment extends Fragment {
     private ArrayList<ModelNotification> notificationList;
     private FirebaseAuth firebaseAuth;
     private AdapterNotification adapterNotification;
+
+    String myUid;
 
     public NotificationsFragment(){}
 
@@ -74,5 +80,54 @@ public class NotificationsFragment extends Fragment {
 
                     }
                 });
+    }
+
+    private void checkUserStatus(){
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null){
+
+            myUid = user.getUid();
+
+        } else{
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+    }
+
+    private void checkOnlineStatus(String status){
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users")
+                .child(myUid);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("onlineStatus", status);
+
+
+        dbRef.updateChildren(hashMap);
+    }
+
+    @Override
+    public void onStart() {
+        checkUserStatus();
+
+        checkOnlineStatus("online");
+        super.onStart();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        String timestamp = String.valueOf(System.currentTimeMillis());
+
+        checkOnlineStatus(timestamp);
+
+    }
+
+    @Override
+    public void onResume() {
+
+        checkOnlineStatus("online");
+
+        super.onResume();
     }
 }

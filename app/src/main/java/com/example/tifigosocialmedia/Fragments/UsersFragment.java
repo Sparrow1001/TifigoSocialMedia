@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -44,6 +45,8 @@ public class UsersFragment extends Fragment {
     List<ModelUsers> usersList;
 
     FirebaseAuth firebaseAuth;
+
+    String myUid;
 
 
     @Override
@@ -152,9 +155,11 @@ public class UsersFragment extends Fragment {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null){
 
-
+            myUid = user.getUid();
 
         } else{
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            checkOnlineStatus(timestamp);
             Intent intent = new Intent(getActivity(), MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
@@ -221,6 +226,42 @@ public class UsersFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void checkOnlineStatus(String status){
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users")
+                .child(myUid);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("onlineStatus", status);
+
+
+        dbRef.updateChildren(hashMap);
+    }
+
+    @Override
+    public void onStart() {
+        checkUserStatus();
+
+        checkOnlineStatus("online");
+        super.onStart();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        String timestamp = String.valueOf(System.currentTimeMillis());
+
+        checkOnlineStatus(timestamp);
+
+    }
+
+    @Override
+    public void onResume() {
+
+        checkOnlineStatus("online");
+
+        super.onResume();
     }
 
 

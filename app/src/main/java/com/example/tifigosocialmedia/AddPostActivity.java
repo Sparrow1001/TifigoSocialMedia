@@ -645,15 +645,28 @@ public class AddPostActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    public void onStart() {
         checkUserStatus();
+
+        checkOnlineStatus("online");
+        super.onStart();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        String timestamp = String.valueOf(System.currentTimeMillis());
+
+        checkOnlineStatus(timestamp);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         checkUserStatus();
+        checkOnlineStatus("online");
     }
 
     private void checkUserStatus(){
@@ -664,8 +677,11 @@ public class AddPostActivity extends AppCompatActivity {
             uid = user.getUid();
 
         } else{
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            checkOnlineStatus(timestamp);
+            Intent intent = new Intent(AddPostActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
     }
 
@@ -756,4 +772,16 @@ public class AddPostActivity extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private void checkOnlineStatus(String status){
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users")
+                .child(uid);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("onlineStatus", status);
+
+
+        dbRef.updateChildren(hashMap);
+    }
+
+
 }
