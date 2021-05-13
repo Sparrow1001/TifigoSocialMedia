@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -60,8 +61,10 @@ import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
 
 
 public class ProfileFragment extends Fragment {
@@ -213,7 +216,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -248,7 +251,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -281,7 +284,7 @@ public class ProfileFragment extends Fragment {
 
     private void showEditProfileDialog() {
 
-        String[] options = {"Изменить фотографию профиля", "Изменить шапку", "Изменить имя", "Изменить телефон"};
+        String[] options = {"Изменить фотографию профиля", "Изменить шапку", "Изменить имя", "Изменить телефон", "Изменить телефон"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Выберите действие");
@@ -306,11 +309,21 @@ public class ProfileFragment extends Fragment {
                     //edit phone
                     pd.setMessage("Обновление телефона ");
                     showNamePhoneUpdateDialog("phone");
+                }else if (which == 4){
+                    //edit password
+                    pd.setMessage("Смена пароля");
+                    showChangePasswordDialog();
                 }
             }
         });
         
         builder.create().show();
+
+    }
+
+    private void showChangePasswordDialog() {
+
+
 
     }
 
@@ -623,7 +636,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
-                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -653,9 +666,11 @@ public class ProfileFragment extends Fragment {
             //mProfileTv.setText(user.getEmail());
             uid = user.getUid();
 
+
         } else{
-            startActivity(new Intent(getActivity(), MainActivity.class));
-            getActivity().finish();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
     }
 
@@ -713,4 +728,5 @@ public class ProfileFragment extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

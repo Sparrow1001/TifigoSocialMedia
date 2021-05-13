@@ -37,6 +37,26 @@
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/nameEt"
+            android:inputType="textMultiLine"
+            android:layout_marginTop="10dp"
+            app:met_floatingLabel="normal"
+            android:hint="Name"
+            />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/phoneEt"
+            android:inputType="phone"
+            android:layout_marginTop="10dp"
+            app:met_floatingLabel="normal"
+            android:hint="Phone"
+            />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/passwordEt"
             android:inputType="textPassword"
             android:layout_marginTop="10dp"

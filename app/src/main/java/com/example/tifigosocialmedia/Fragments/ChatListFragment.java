@@ -159,8 +159,9 @@ public class ChatListFragment extends Fragment {
             //mProfileTv.setText(user.getEmail());
 
         } else{
-            startActivity(new Intent(getActivity(), MainActivity.class));
-            getActivity().finish();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
     }
 

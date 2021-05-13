@@ -250,7 +250,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            // Sign in success, update UI with the signed-in firebaseAuth's information
                             FirebaseUser user = mAuth.getCurrentUser();
 
                             if (Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getAdditionalUserInfo()).isNewUser()){
@@ -280,9 +280,9 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, ""+user.getEmail(), Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                             finish();
-                            //updateUI(user);
+                            //updateUI(firebaseAuth);
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // If sign in fails, display a message to the firebaseAuth.
                             Toast.makeText(LoginActivity.this, "Login Failed...", Toast.LENGTH_SHORT).show();
                             //updateUI(null);
                         }

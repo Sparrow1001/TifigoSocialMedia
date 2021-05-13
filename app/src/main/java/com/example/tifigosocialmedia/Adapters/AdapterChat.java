@@ -3,6 +3,7 @@ package com.example.tifigosocialmedia.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tifigosocialmedia.Models.ModelChat;
 import com.example.tifigosocialmedia.R;
+import com.example.tifigosocialmedia.ThereProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -76,6 +78,8 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
         String timeStamp = chatList.get(i).getTimeStamp();
         String type = chatList.get(i).getType();
 
+
+
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(Long.parseLong(timeStamp));
         String dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString();
@@ -131,6 +135,8 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
                 builder.create().show();
             }
         });
+
+
 
         //status of message
         if (i == chatList.size() - 1){
@@ -195,7 +201,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
     class MyHolder extends RecyclerView.ViewHolder{
 
         ImageView profileIv, messageIv;
-        TextView messageTv, timeTv, isSeenTv;
+        TextView messageTv, timeTv, isSeenTv, nameTv;
         LinearLayout messageLayout;
 
         public MyHolder(@NonNull View itemView) {
@@ -204,6 +210,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
             profileIv = itemView.findViewById(R.id.profileIv);
             messageIv = itemView.findViewById(R.id.messageIv);
             messageTv = itemView.findViewById(R.id.messageTv);
+            nameTv = itemView.findViewById(R.id.nameTv);
             timeTv = itemView.findViewById(R.id.timeTv);
             isSeenTv = itemView.findViewById(R.id.isSeenTv);
             messageLayout = itemView.findViewById(R.id.messageLayout);

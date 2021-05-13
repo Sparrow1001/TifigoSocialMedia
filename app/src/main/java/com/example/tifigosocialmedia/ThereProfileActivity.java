@@ -189,7 +189,7 @@ public class ThereProfileActivity extends AppCompatActivity {
     private void checkUserStatus(){
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null){
-            //mProfileTv.setText(user.getEmail());
+            //mProfileTv.setText(firebaseAuth.getEmail());
 
         } else{
             startActivity(new Intent(this ,MainActivity.class));

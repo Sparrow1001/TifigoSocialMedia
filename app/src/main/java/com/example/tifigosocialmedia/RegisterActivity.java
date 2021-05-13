@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText mEmailEt, mPasswordEt;
+    EditText mEmailEt, mPasswordEt, mNameEt, mPhoneEt;
     Button mRegisterBtn;
     TextView mHaveAAccount;
 
@@ -49,6 +49,8 @@ public class RegisterActivity extends AppCompatActivity {
         mPasswordEt = findViewById(R.id.passwordEt);
         mRegisterBtn = findViewById(R.id.registerBtn);
         mHaveAAccount = findViewById(R.id.have_accountTv);
+        mNameEt = findViewById(R.id.nameEt);
+        mPhoneEt = findViewById(R.id.phoneEt);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -60,6 +62,8 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = mEmailEt.getText().toString().trim();
                 String password = mPasswordEt.getText().toString().trim();
+                String name = mNameEt.getText().toString().trim();
+                String phone = mPhoneEt.getText().toString().trim();
 
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                     mEmailEt.setError("Invalid Email");
@@ -70,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                     mPasswordEt.setFocusable(true);
                 }
                 else {
-                    registerUser(email, password);
+                    registerUser(email, password, name, phone);
                 }
             }
         });
@@ -87,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-    private void registerUser(String email, String password) {
+    private void registerUser(String email, String password, String name, String phone) {
         progressDialog.show();
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -105,10 +109,10 @@ public class RegisterActivity extends AppCompatActivity {
                     HashMap<Object, String> hashMap = new HashMap<>();
                     hashMap.put("email", email);
                     hashMap.put("uid", uid);
-                    hashMap.put("name", "");
+                    hashMap.put("name", name);
                     hashMap.put("onlineStatus", "online");
                     hashMap.put("typingTo", "noOne");
-                    hashMap.put("phone", "");
+                    hashMap.put("phone", phone);
                     hashMap.put("image", "");
                     hashMap.put("cover", "");
 

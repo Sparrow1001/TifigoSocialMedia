@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -129,8 +129,9 @@ public class HomeFragment extends Fragment {
 
 
         } else{
-            startActivity(new Intent(getActivity(), MainActivity.class));
-            getActivity().finish();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
     }
 

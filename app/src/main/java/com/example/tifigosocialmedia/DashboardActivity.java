@@ -123,7 +123,7 @@ public class DashboardActivity extends AppCompatActivity {
     private void checkUserStatus(){
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null){
-            //mProfileTv.setText(user.getEmail());
+            //mProfileTv.setText(firebaseAuth.getEmail());
             mUID = user.getUid();
 
 
