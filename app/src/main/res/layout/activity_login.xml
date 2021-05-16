@@ -42,6 +42,7 @@
             android:layout_marginTop="10dp"
             app:met_floatingLabel="normal"
             android:hint="Password"
+            app:passwordToggleEnabled="true"
             />
 
         <Button
