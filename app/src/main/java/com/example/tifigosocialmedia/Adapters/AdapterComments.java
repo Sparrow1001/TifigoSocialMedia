@@ -3,6 +3,7 @@ package com.example.tifigosocialmedia.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tifigosocialmedia.Models.ModelComment;
+import com.example.tifigosocialmedia.Models.ModelUsers;
 import com.example.tifigosocialmedia.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +34,8 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
     Context context;
     List<ModelComment> commentList;
     String myUid, postId;
+
+    boolean isAdmin = false;
 
     public AdapterComments(Context context, List<ModelComment> commentList, String myUid, String postId) {
         this.context = context;
@@ -64,9 +68,29 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
         calendar.setTimeInMillis(Long.parseLong(timestamp));
         String pTime = DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Users").child(myUid);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ModelUsers user = dataSnapshot.getValue(ModelUsers.class);
+                assert user != null;
+                isAdmin = user.getIsAdmin();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         myHolder.nameTv.setText(name);
         myHolder.commentTv.setText(comment);
         myHolder.timeTv.setText(pTime);
+
+        if(isAdmin){
+            myHolder.nameTv.setTextColor(Color.BLUE);
+        }
 
         try{
             Picasso.get().load(image).placeholder(R.drawable.ic_default_img).into(myHolder.avatarIv);
@@ -75,7 +99,7 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
         myHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (myUid.equals(uid)){
+                if (myUid.equals(uid) || isAdmin){
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView()
                             .getContext());
                     builder.setTitle("Delete");
@@ -98,6 +122,8 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
                 }
             }
         });
+
+
 
     }
 

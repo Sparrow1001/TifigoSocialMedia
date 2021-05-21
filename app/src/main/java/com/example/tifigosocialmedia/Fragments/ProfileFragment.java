@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -82,7 +83,7 @@ public class ProfileFragment extends Fragment {
     String storagePath = "Users_Profile_Cover_Imgs/";
 
     ImageView avatarIv, coverIv;
-    TextView nameTv, emailTv, phoneTv;
+    TextView nameTv, emailTv, phoneTv, adminTv;
     FloatingActionButton fab;
 
     RecyclerView postsRecyclerView;
@@ -146,10 +147,15 @@ public class ProfileFragment extends Fragment {
                     String phone = ""+ds.child("phone").getValue();
                     String image = ""+ds.child("image").getValue();
                     String cover = ""+ds.child("cover").getValue();
+                    boolean isAdmin = (boolean) ds.child("isAdmin").getValue();
 
                     nameTv.setText(name);
                     emailTv.setText(email);
                     phoneTv.setText(phone);
+                    if(isAdmin){
+                        nameTv.setTextColor(Color.BLUE);
+                    }
+
 
                     try {
                         Picasso.get().load(image).into(avatarIv);

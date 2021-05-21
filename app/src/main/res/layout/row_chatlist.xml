@@ -25,7 +25,7 @@
             android:id="@+id/nameTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hist Name"
+            android:text="His Name"
             android:layout_marginStart="4dp"
             android:textColor="@color/black"
             android:textSize="18sp"

@@ -1,6 +1,7 @@
 package com.example.tifigosocialmedia.Fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,12 +19,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tifigosocialmedia.Adapters.AdapterPosts;
 import com.example.tifigosocialmedia.AddPostActivity;
 import com.example.tifigosocialmedia.MainActivity;
 import com.example.tifigosocialmedia.Models.ModelPost;
+import com.example.tifigosocialmedia.Models.ModelUsers;
 import com.example.tifigosocialmedia.R;
 import com.example.tifigosocialmedia.SettingsActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +50,10 @@ public class HomeFragment extends Fragment {
     List<ModelPost> postList;
     AdapterPosts adapterPosts;
 
+    TextView mNameTv;
+
+    boolean isAdmin = false;
+
     String myUid;
 
     public HomeFragment() {
@@ -60,6 +67,10 @@ public class HomeFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        mNameTv = view.findViewById(R.id.nameTv);
+
+        myUid = firebaseAuth.getUid();
+
         recyclerView = view.findViewById(R.id.postRecycleView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         
@@ -71,6 +82,26 @@ public class HomeFragment extends Fragment {
         postList = new ArrayList<>();
         
         loadPosts();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Users").child(myUid);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ModelUsers user = dataSnapshot.getValue(ModelUsers.class);
+                assert user != null;
+                isAdmin = user.getIsAdmin();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        if(isAdmin){
+            mNameTv.setTextColor(Color.BLUE);
+        }
 
         return view;
     }

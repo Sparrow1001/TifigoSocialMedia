@@ -65,7 +65,7 @@ public class AdapterNotification extends RecyclerView.Adapter<AdapterNotificatio
         String notification = model.getNotification();
         String image = model.getsImage();
         String timestamp = model.getTimestamp();
-        String senderUid = model.getpUid();
+        String senderUid = model.getsUid();
         String pId = model.getpId();
 
         Calendar calendar = Calendar.getInstance(Locale.getDefault());

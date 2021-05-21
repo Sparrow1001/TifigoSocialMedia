@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tifigosocialmedia.Models.ModelChat;
+import com.example.tifigosocialmedia.Models.ModelUsers;
 import com.example.tifigosocialmedia.R;
 import com.example.tifigosocialmedia.ThereProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,12 +45,21 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
     List<ModelChat> chatList;
     String imageUrl;
 
+    boolean isAdmin = false;
+
+    String myUid;
+
+    FirebaseAuth firebaseAuth;
+
     FirebaseUser fUser;
 
     public AdapterChat(Context context, List<ModelChat> chatList, String imageUrl) {
         this.context = context;
         this.chatList = chatList;
         this.imageUrl = imageUrl;
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        myUid = firebaseAuth.getUid();
     }
 
     @NonNull
@@ -150,6 +161,26 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
             myHolder.isSeenTv.setVisibility(View.GONE);
         }
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Users").child(myUid);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ModelUsers user = dataSnapshot.getValue(ModelUsers.class);
+                assert user != null;
+                isAdmin = user.getIsAdmin();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        if(isAdmin){
+            myHolder.nameTv.setTextColor(Color.BLUE);
+        }
+
     }
 
     private void deleteMessage(int position) {
@@ -162,7 +193,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    if (ds.child("sender").getValue().equals(myUID)){
+                    if (ds.child("sender").getValue().equals(myUID) || isAdmin){
                         ds.getRef().removeValue();
                         Toast.makeText(context, "сообщение удалено", Toast.LENGTH_SHORT).show();
                     }else {

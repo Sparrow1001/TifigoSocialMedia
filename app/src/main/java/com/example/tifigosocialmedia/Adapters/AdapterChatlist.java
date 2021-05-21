@@ -2,6 +2,7 @@ package com.example.tifigosocialmedia.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tifigosocialmedia.ChatActivity;
-import com.example.tifigosocialmedia.Models.ModelChatlist;
 import com.example.tifigosocialmedia.Models.ModelUsers;
 import com.example.tifigosocialmedia.R;
 import com.squareup.picasso.Picasso;
+
 
 import java.util.HashMap;
 import java.util.List;

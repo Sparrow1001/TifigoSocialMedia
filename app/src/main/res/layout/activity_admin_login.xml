@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    tools:context=".LoginActivity">
+    tools:context=".AdminLoginActivity">
 
     <LinearLayout
         android:layout_marginTop="150dp"
@@ -19,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="Admin Login"
             android:textSize="20sp"
             android:textStyle="bold"></TextView>
 
@@ -55,13 +54,6 @@
             android:textColor="@color/black"
             />
 
-        <com.google.android.gms.common.SignInButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/googleLoginBtn">
-
-        </com.google.android.gms.common.SignInButton>
-
         <TextView
             android:id="@+id/recoverPassTv"
             android:layout_width="match_parent"
@@ -72,26 +64,14 @@
             android:textColor="@color/design_default_color_primary_dark"/>
 
         <TextView
-            android:id="@+id/adminSignInTv"
+            android:id="@+id/userSignInTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="Вы администратор?"
+            android:text="Вы пользователь?"
             android:layout_marginTop="10dp"
             android:textColor="@color/design_default_color_primary_dark"/>
 
     </LinearLayout>
-
-
-
-    <TextView
-        android:id="@+id/not_have_accountTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="Ещё не зарегистрированы? Зарегистрироваться"
-        android:textAlignment="center"
-        android:layout_alignParentBottom="true"
-        android:textColor="@color/design_default_color_primary_dark" />
 
 </RelativeLayout>

@@ -21,6 +21,7 @@ import com.example.tifigosocialmedia.ThereProfileActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +39,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
 
     FirebaseAuth firebaseAuth;
     String myUid;
+    boolean isAdmin = false;
 
     public AdapterUsers(Context context, List<ModelUsers> usersList) {
         this.context = context;
@@ -60,7 +62,8 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
     public void onBindViewHolder(@NonNull MyHolder myHolder, final int i) {
 
         final String hisUID = usersList.get(i).getUid();
-
+        FirebaseUser userC = FirebaseAuth.getInstance().getCurrentUser();
+        String userCheck = userC.getUid();
         String userImage = usersList.get(i).getImage();
         String userName = usersList.get(i).getName();
         final String userEmail = usersList.get(i).getEmail();
@@ -75,6 +78,22 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
         }catch (Exception e){
 
         }
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Users").child(userCheck);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ModelUsers user = dataSnapshot.getValue(ModelUsers.class);
+                assert user != null;
+                isAdmin = user.getIsAdmin();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         myHolder.blockIv.setImageResource(R.drawable.ic_unblock_green);
         checkIsBlocked(hisUID, myHolder, i);

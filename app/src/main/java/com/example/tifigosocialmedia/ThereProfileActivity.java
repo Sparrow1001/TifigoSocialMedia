@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -82,10 +83,15 @@ public class ThereProfileActivity extends AppCompatActivity {
                     String phone = ""+ds.child("phone").getValue();
                     String image = ""+ds.child("image").getValue();
                     String cover = ""+ds.child("cover").getValue();
+                    boolean isAdmin = (boolean) ds.child("isAdmin").getValue();
 
                     nameTv.setText(name);
                     emailTv.setText(email);
                     phoneTv.setText(phone);
+
+                    if(isAdmin){
+                        nameTv.setTextColor(Color.BLUE);
+                    }
 
                     try {
                         Picasso.get().load(image).into(avatarIv);

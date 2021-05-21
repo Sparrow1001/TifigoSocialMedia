@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tifigosocialmedia.Models.ModelUsers;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -32,8 +33,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.HashMap;
@@ -46,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     MaterialEditText mEmailEt, mPasswordEt;
-    TextView notHaveAccntTv, mRecoverPassTv;
+    TextView notHaveAccntTv, mRecoverPassTv, adminSignInTv;
     Button mLoginBtn;
     SignInButton mGoogleLoginBtn;
 
@@ -82,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginBtn = findViewById(R.id.loginBtn);
         mRecoverPassTv = findViewById(R.id.recoverPassTv);
         mGoogleLoginBtn = findViewById(R.id.googleLoginBtn);
+        adminSignInTv = findViewById(R.id.adminSignInTv);
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +110,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                finish();
+            }
+        });
+
+        adminSignInTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, AdminLoginActivity.class));
                 finish();
             }
         });
@@ -163,7 +176,6 @@ public class LoginActivity extends AppCompatActivity {
 
         builder.create().show();
 
-
     }
 
     private void beginRecovery(String email) {
@@ -195,12 +207,13 @@ public class LoginActivity extends AppCompatActivity {
         pd.setMessage("Logging In...");
         pd.show();
 
+        FirebaseUser user = mAuth.getCurrentUser();
+
         mAuth.signInWithEmailAndPassword(email, passw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     pd.dismiss();
-                    FirebaseUser user = mAuth.getCurrentUser();
 
                     startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                     finish();

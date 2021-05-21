@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -29,7 +30,10 @@ import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tifigosocialmedia.AddPostActivity;
+import com.example.tifigosocialmedia.AdminLoginActivity;
+import com.example.tifigosocialmedia.DashboardActivity;
 import com.example.tifigosocialmedia.Models.ModelPost;
+import com.example.tifigosocialmedia.Models.ModelUsers;
 import com.example.tifigosocialmedia.PostDetailActivity;
 import com.example.tifigosocialmedia.PostLikedByActivity;
 import com.example.tifigosocialmedia.R;
@@ -37,6 +41,7 @@ import com.example.tifigosocialmedia.ThereProfileActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,6 +65,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     List<ModelPost> postList;
 
     String myUid;
+    boolean isAdmin;
 
     private DatabaseReference likesRef;
     private DatabaseReference postsRef;
@@ -130,6 +136,29 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             } catch (Exception e){
 
             }
+        }
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Users").child(myUid);
+
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ModelUsers user = dataSnapshot.getValue(ModelUsers.class);
+                assert user != null;
+                isAdmin = user.getIsAdmin();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        if(isAdmin){
+            myHolder.uNameTv.setTextColor(Color.BLUE);
         }
 
 
@@ -230,29 +259,31 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     }
 
     private void addToHisNotifications(String hisUid, String pId,String notification){
+        if (!hisUid.equals(myUid)){
+            String timestamp = ""+System.currentTimeMillis();
 
-        String timestamp = ""+System.currentTimeMillis();
+            HashMap<Object, String> hashMap = new HashMap<>();
+            hashMap.put("pId", pId);
+            hashMap.put("timestamp", timestamp);
+            hashMap.put("pUid", hisUid);
+            hashMap.put("notification", notification);
+            hashMap.put("sUid", myUid);
 
-        HashMap<Object, String> hashMap = new HashMap<>();
-        hashMap.put("pId", pId);
-        hashMap.put("timestamp", timestamp);
-        hashMap.put("pUid", hisUid);
-        hashMap.put("notification", notification);
-        hashMap.put("sUid", myUid);
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+            ref.child(hisUid).child("Notifications").child(timestamp).setValue(hashMap)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(hisUid).child("Notifications").child(timestamp).setValue(hashMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+                }
+            });
+        }else{}
 
-            }
-        });
 
     }
 
@@ -331,7 +362,8 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
         PopupMenu popupMenu = new PopupMenu(context, moreBtn, Gravity.END);
 
-        if (uid.equals(myUid)){
+
+        if (uid.equals(myUid) || isAdmin){
             popupMenu.getMenu().add(Menu.NONE, 0, 0, "Delete");
             popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
         }

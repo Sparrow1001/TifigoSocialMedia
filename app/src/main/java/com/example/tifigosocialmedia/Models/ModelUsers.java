@@ -103,7 +103,7 @@ public class ModelUsers {
         isBlocked = blocked;
     }
 
-    public boolean isAdmin() {
+    public boolean getIsAdmin() {
         return isAdmin;
     }
 
