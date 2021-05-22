@@ -104,21 +104,44 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setItems(new String[]{"Profile", "Chat"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which == 0){
-                            //profile
-                            Intent intent = new Intent(context, ThereProfileActivity.class);
-                            intent.putExtra("uid", hisUID);
-                            context.startActivity(intent);
+                if (isAdmin){
+                    builder.setItems(new String[]{"Profile", "Chat", "Delete user"}, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (which == 0){
+                                //profile
+                                Intent intent = new Intent(context, ThereProfileActivity.class);
+                                intent.putExtra("uid", hisUID);
+                                context.startActivity(intent);
+                            }
+                            if (which == 1){
+                                //chat
+                                imBlockedOrNot(hisUID);
+                            }
+                            if (which == 2){
+                                deleteUser(hisUID);
+                            }
                         }
-                        if (which == 1){
-                            //chat
-                            imBlockedOrNot(hisUID);
+                    });
+                }
+                else{
+                    builder.setItems(new String[]{"Profile", "Chat"}, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (which == 0){
+                                //profile
+                                Intent intent = new Intent(context, ThereProfileActivity.class);
+                                intent.putExtra("uid", hisUID);
+                                context.startActivity(intent);
+                            }
+                            if (which == 1){
+                                //chat
+                                imBlockedOrNot(hisUID);
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
                 builder.create().show();
             }
         });
@@ -134,6 +157,25 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
             }
         });
 
+    }
+
+    private void deleteUser(String hisUID) {
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
+        userRef.child(hisUID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    ds.getRef().removeValue();
+                }
+                Toast.makeText(context, "User deleted", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void imBlockedOrNot(String hisUID){
