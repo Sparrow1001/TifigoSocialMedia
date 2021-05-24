@@ -104,13 +104,13 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
                             .getContext());
                     builder.setTitle("Delete");
                     builder.setMessage("Вы точно хотите удалить комментарий?");
-                    builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             deleteComment(cid);
                         }
                     });
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();

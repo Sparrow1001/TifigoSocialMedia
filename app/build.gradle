@@ -51,7 +51,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:20.0.0'
 
 
-
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
 
     implementation 'com.github.atifsayings:CircularImageView:1.0.1'
     implementation 'com.google.firebase:firebase-messaging:22.0.0'

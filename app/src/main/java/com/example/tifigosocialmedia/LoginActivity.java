@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                     //invalid email
-                    mEmailEt.setError("Invalid Email");
+                    mEmailEt.setError("Неправильный Email");
                     mEmailEt.setFocusable(true);
                 }else {
                     //valid email
@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showRecoverPasswordDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Recover Password");
+        builder.setTitle("Востановить пароль");
 
         LinearLayout linearLayout = new LinearLayout(this);
 
@@ -159,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
 
         builder.setView(linearLayout);
 
-        builder.setPositiveButton("Recover", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Востановить", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String email = emailEt.getText().toString().trim();
@@ -167,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -188,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 pd.dismiss();
                 if (task.isSuccessful()){
-                    Toast.makeText(LoginActivity.this, "Email sent", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Email отправлен", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(LoginActivity.this, "Failed...", Toast.LENGTH_SHORT).show();
                 }

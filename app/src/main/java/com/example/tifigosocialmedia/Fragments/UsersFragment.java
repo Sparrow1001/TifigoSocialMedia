@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import com.example.tifigosocialmedia.Adapters.AdapterUsers;
-import com.example.tifigosocialmedia.DashboardActivity;
 import com.example.tifigosocialmedia.MainActivity;
 import com.example.tifigosocialmedia.Models.ModelUsers;
 import com.example.tifigosocialmedia.R;

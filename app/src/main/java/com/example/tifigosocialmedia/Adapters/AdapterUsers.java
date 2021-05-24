@@ -105,7 +105,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 if (isAdmin){
-                    builder.setItems(new String[]{"Profile", "Chat", "Delete user"}, new DialogInterface.OnClickListener() {
+                    builder.setItems(new String[]{"Профиль", "Чат", "Удалить пользователя"}, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (which == 0){
@@ -125,7 +125,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
                     });
                 }
                 else{
-                    builder.setItems(new String[]{"Profile", "Chat"}, new DialogInterface.OnClickListener() {
+                    builder.setItems(new String[]{"Профиль", "Чат"}, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (which == 0){

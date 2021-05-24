@@ -152,9 +152,9 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
         //status of message
         if (i == chatList.size() - 1){
             if (chatList.get(i).isSeen()){
-                myHolder.isSeenTv.setText("Seen");
+                myHolder.isSeenTv.setText("Просмотрено");
             }else {
-                myHolder.isSeenTv.setText("Delivered");
+                myHolder.isSeenTv.setText("Доставлено");
             }
         }
         else {

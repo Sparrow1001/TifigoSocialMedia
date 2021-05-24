@@ -351,11 +351,11 @@ public class ProfileFragment extends Fragment {
                 String oldPassword = passwordEt.getText().toString().trim();
                 String newPassword = newPasswordEt.getText().toString().trim();
                 if (TextUtils.isEmpty(oldPassword)){
-                    Toast.makeText(getActivity(), "Enter your current password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Введите текущий пароль", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (newPassword.length()<6){
-                    Toast.makeText(getActivity(), "пароль составляет минимум 6 символов", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Пароль составляет минимум 6 символов", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -414,7 +414,7 @@ public class ProfileFragment extends Fragment {
         builder.setView(linearLayout);
 
         //to update
-        builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Обновить", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String value = editText.getText().toString().trim();
@@ -497,13 +497,13 @@ public class ProfileFragment extends Fragment {
 
                 }
                 else{
-                    Toast.makeText(getActivity(), "Please enter" + key, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Пожалуйста введите" + key, Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
         //to cancel
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

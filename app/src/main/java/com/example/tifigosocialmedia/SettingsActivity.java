@@ -5,13 +5,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,9 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.sql.Struct;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -45,7 +40,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Settings");
+        actionBar.setTitle("Настройки");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
@@ -81,7 +76,6 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -93,7 +87,7 @@ public class SettingsActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        String msg = "You will not receive post notifications";
+                        String msg = "Уведомления о постах отключены";
                         if (!task.isSuccessful()){
                             msg = "UnSubscription failed";
                         }
@@ -108,7 +102,7 @@ public class SettingsActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        String msg = "You will receive post notifications";
+                        String msg = "Уведомления о постах включены";
                         if (!task.isSuccessful()){
                             msg = "Subscription failed";
                         }

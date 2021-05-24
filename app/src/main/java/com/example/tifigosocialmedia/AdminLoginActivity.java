@@ -107,7 +107,7 @@ public class AdminLoginActivity extends AppCompatActivity {
 
     private void showRecoverPasswordDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Recover Password");
+        builder.setTitle("Восстановление пароля");
 
         LinearLayout linearLayout = new LinearLayout(this);
 
@@ -122,7 +122,7 @@ public class AdminLoginActivity extends AppCompatActivity {
 
         builder.setView(linearLayout);
 
-        builder.setPositiveButton("Recover", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Восстановить", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String email = emailEt.getText().toString().trim();
@@ -130,7 +130,7 @@ public class AdminLoginActivity extends AppCompatActivity {
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Отменить", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -208,7 +208,7 @@ public class AdminLoginActivity extends AppCompatActivity {
                     }
                     else {
                         mAuth.signOut();
-                        Toast.makeText(AdminLoginActivity.this, "you are not a admin", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AdminLoginActivity.this, "Вы не администратор", Toast.LENGTH_SHORT).show();
                     }
 
 

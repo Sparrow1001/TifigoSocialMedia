@@ -205,7 +205,7 @@ public class PostDetailActivity extends AppCompatActivity {
         sIntent.setType("text/plain");
         sIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here"); //in case you share via an email app
         sIntent.putExtra(Intent.EXTRA_TEXT, shareBody); //text to share
-        startActivity(Intent.createChooser(sIntent, "Share Via")); //message to share in dialog
+        startActivity(Intent.createChooser(sIntent, "Поделиться через")); //message to share in dialog
     }
 
     private void shareImageAndText(String pTitle, String pDescription, Bitmap bitmap) {
@@ -221,7 +221,7 @@ public class PostDetailActivity extends AppCompatActivity {
         sIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
         sIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
         sIntent.setType("image/png");
-        startActivity(Intent.createChooser(sIntent, "Share Via"));
+        startActivity(Intent.createChooser(sIntent, "Поделиться через"));
     }
 
     private Uri saveImageToShare(Bitmap bitmap) {
@@ -280,8 +280,8 @@ public class PostDetailActivity extends AppCompatActivity {
         PopupMenu popupMenu = new PopupMenu(this, moreBtn, Gravity.END);
 
         if (hisUid.equals(myUid)){
-            popupMenu.getMenu().add(Menu.NONE, 0, 0, "Delete");
-            popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
+            popupMenu.getMenu().add(Menu.NONE, 0, 0, "Удалить");
+            popupMenu.getMenu().add(Menu.NONE, 1, 0, "Изменить");
         }
 
 
@@ -459,7 +459,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 commentEt.setText("");
                 updateCommentCount();
 
-                addToHisNotifications(""+hisUid, ""+postId, "Commented on your post");
+                addToHisNotifications(""+hisUid, ""+postId, "Прокоментировал вашу запись");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

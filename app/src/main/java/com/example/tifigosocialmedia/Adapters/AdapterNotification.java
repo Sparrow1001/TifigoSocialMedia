@@ -121,9 +121,9 @@ public class AdapterNotification extends RecyclerView.Adapter<AdapterNotificatio
             @Override
             public boolean onLongClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Delete");
-                builder.setMessage("Are u sure to delete this  notification?");
-                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                builder.setTitle("Удалить");
+                builder.setMessage("Вы уверены, что хотите удалить это уведомление?");
+                builder.setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DatabaseReference ref = FirebaseDatabase.getInstance()
@@ -144,7 +144,7 @@ public class AdapterNotification extends RecyclerView.Adapter<AdapterNotificatio
                         });
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

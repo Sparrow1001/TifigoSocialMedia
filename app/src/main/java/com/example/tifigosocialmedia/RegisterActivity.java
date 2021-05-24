@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Create Account");
+        actionBar.setTitle("Создание аккаунта");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
@@ -70,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
                     mEmailEt.setFocusable(true);
                 }
                 else if (password.length() < 6){
-                    mPasswordEt.setError("Password length at least 6 characters");
+                    mPasswordEt.setError("Пароль должен содержать не менее 6 символов");
                     mPasswordEt.setFocusable(true);
                 }
                 else {
@@ -115,11 +115,13 @@ public class RegisterActivity extends AppCompatActivity {
                     hashMap.put("phone", phone);
                     hashMap.put("image", "");
                     hashMap.put("cover", "");
+                    hashMap.put("isAdmin", "");
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference reference = database.getReference("Users");
-
                     reference.child(uid).setValue(hashMap);
+
+                    reference.child(uid).child("isAdmin").setValue(false);
 
                     Toast.makeText(RegisterActivity.this, "Registered...\n"+user.getEmail(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegisterActivity.this, DashboardActivity.class));

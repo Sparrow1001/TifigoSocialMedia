@@ -40,14 +40,14 @@ public class DashboardActivity extends AppCompatActivity {
 
         actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.setTitle("Profile");
+        actionBar.setTitle("Профиль");
 
         firebaseAuth = FirebaseAuth.getInstance();
 
         BottomNavigationView navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(selectedListener);
 
-        actionBar.setTitle("Home");
+        actionBar.setTitle("Домашняя страница");
         HomeFragment fragment1 = new HomeFragment();
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
         ft1.replace(R.id.content, fragment1, "");
@@ -77,14 +77,14 @@ public class DashboardActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                     switch (menuItem.getItemId()){
                         case R.id.nav_home:
-                            actionBar.setTitle("Home");
+                            actionBar.setTitle("Домашняя страница");
                             HomeFragment fragment1 = new HomeFragment();
                             FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
                             ft1.replace(R.id.content, fragment1, "");
                             ft1.commit();
                             return  true;
                         case R.id.nav_profile:
-                            actionBar.setTitle("Profile");
+                            actionBar.setTitle("Профиль");
                             ProfileFragment fragment2 = new ProfileFragment();
                             FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
                             ft2.replace(R.id.content, fragment2, "");
@@ -92,7 +92,7 @@ public class DashboardActivity extends AppCompatActivity {
                             return  true;
 
                         case R.id.nav_users:
-                            actionBar.setTitle("Users");
+                            actionBar.setTitle("Пользователи");
                             UsersFragment fragment3 = new UsersFragment();
                             FragmentTransaction ft3 = getSupportFragmentManager().beginTransaction();
                             ft3.replace(R.id.content, fragment3, "");
@@ -100,7 +100,7 @@ public class DashboardActivity extends AppCompatActivity {
                             return  true;
 
                         case R.id.nav_chat:
-                            actionBar.setTitle("Chats");
+                            actionBar.setTitle("Чаты");
                             ChatListFragment fragment4 = new ChatListFragment();
                             FragmentTransaction ft4 = getSupportFragmentManager().beginTransaction();
                             ft4.replace(R.id.content, fragment4, "");
@@ -108,7 +108,7 @@ public class DashboardActivity extends AppCompatActivity {
                             return  true;
 
                         case R.id.nav_notification:
-                            actionBar.setTitle("Notifications");
+                            actionBar.setTitle("Уведомления");
                             NotificationsFragment fragment5 = new NotificationsFragment();
                             FragmentTransaction ft5 = getSupportFragmentManager().beginTransaction();
                             ft5.replace(R.id.content, fragment5, "");

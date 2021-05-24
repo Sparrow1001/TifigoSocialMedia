@@ -89,7 +89,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ModelUsers user = dataSnapshot.getValue(ModelUsers.class);
-                assert user != null;
                 isAdmin = user.getIsAdmin();
             }
 

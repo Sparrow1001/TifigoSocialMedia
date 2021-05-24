@@ -296,7 +296,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         sIntent.setType("text/plain");
         sIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here"); //in case you share via an email app
         sIntent.putExtra(Intent.EXTRA_TEXT, shareBody); //text to share
-        context.startActivity(Intent.createChooser(sIntent, "Share Via")); //message to share in dialog
+        context.startActivity(Intent.createChooser(sIntent, "Поделиться через")); //message to share in dialog
     }
 
     private void shareImageAndText(String pTitle, String pDescription, Bitmap bitmap) {
@@ -312,7 +312,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         sIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
         sIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
         sIntent.setType("image/png");
-        context.startActivity(Intent.createChooser(sIntent, "Share Via"));
+        context.startActivity(Intent.createChooser(sIntent, "Поделиться через"));
     }
 
     private Uri saveImageToShare(Bitmap bitmap) {
@@ -364,11 +364,11 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
 
         if (uid.equals(myUid) || isAdmin){
-            popupMenu.getMenu().add(Menu.NONE, 0, 0, "Delete");
-            popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
+            popupMenu.getMenu().add(Menu.NONE, 0, 0, "Удалить");
+            popupMenu.getMenu().add(Menu.NONE, 1, 0, "Изменить");
         }
 
-        popupMenu.getMenu().add(Menu.NONE, 2, 0, "View Detail");
+        popupMenu.getMenu().add(Menu.NONE, 2, 0, "Посмотреть детали");
         
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override

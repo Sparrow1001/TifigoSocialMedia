@@ -132,11 +132,11 @@ public class AddPostActivity extends AppCompatActivity {
 
         if (isUpdateKey.equals("editPost")){
             actionBar.setTitle("Update Post");
-            uploadBtn.setText("Update");
+            uploadBtn.setText("Обновить");
             loadPostData(editPostId);
         }else{
             actionBar.setTitle("Add New Post");
-            uploadBtn.setText("Upload");
+            uploadBtn.setText("Добавить");
         }
 
 
@@ -176,11 +176,11 @@ public class AddPostActivity extends AppCompatActivity {
                 String title = titleEt.getText().toString().trim();
                 String description = descriptionEt.getText().toString().trim();
                 if(TextUtils.isEmpty(title)){
-                    Toast.makeText(AddPostActivity.this, "Enter title..", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddPostActivity.this, "Введите оглавление", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(description)){
-                    Toast.makeText(AddPostActivity.this, "Enter description", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddPostActivity.this, "Введите описание", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -464,7 +464,7 @@ public class AddPostActivity extends AppCompatActivity {
                                         imageIv.setImageURI(null);
                                         image_uri =null;
 
-                                        prepareNotification(""+timeStamp, ""+ name + " added new post", ""+title+"\n"+description, "PostNotification", "POST");
+                                        prepareNotification(""+timeStamp, ""+ name + " добавил новый пост", ""+title+"\n"+description, "PostNotification", "POST");
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -510,7 +510,7 @@ public class AddPostActivity extends AppCompatActivity {
                     imageIv.setImageURI(null);
                     image_uri =null;
 
-                    prepareNotification(""+timeStamp, ""+ name + " added new post", ""+title+"\n"+description, "PostNotification", "POST");
+                    prepareNotification(""+timeStamp, ""+ name + " добавил новый пост", ""+title+"\n"+description, "PostNotification", "POST");
 
                 }
             }).addOnFailureListener(new OnFailureListener() {

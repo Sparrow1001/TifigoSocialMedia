@@ -184,7 +184,7 @@ public class ChatActivity extends AppCompatActivity {
                             String dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa",
                                     cal).toString();
 
-                            userStatusTv.setText("Last seen at: "+ dateTime);
+                            userStatusTv.setText("Был в сети в: "+ dateTime);
                         }
                     }
 

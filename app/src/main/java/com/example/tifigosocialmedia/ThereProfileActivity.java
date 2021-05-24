@@ -55,7 +55,7 @@ public class ThereProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_there_profile);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Profile");
+        actionBar.setTitle("Профиль");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
