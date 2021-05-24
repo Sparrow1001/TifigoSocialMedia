@@ -9,7 +9,9 @@
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gifIv"
         android:layout_width="wrap_content"
-        android:layout_height="237dp"
+        android:layout_height="193dp"
+        android:layout_marginLeft="70dp"
+
         android:background="#FAF5F5"
         android:src="@drawable/splash" />
 
