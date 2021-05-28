@@ -207,8 +207,6 @@ public class LoginActivity extends AppCompatActivity {
         pd.setMessage("Logging In...");
         pd.show();
 
-        FirebaseUser user = mAuth.getCurrentUser();
-
         mAuth.signInWithEmailAndPassword(email, passw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

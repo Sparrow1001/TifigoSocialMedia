@@ -3,7 +3,10 @@ package com.example.tifigosocialmedia;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -11,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.tifigosocialmedia.Fragments.ChatListFragment;
+import com.example.tifigosocialmedia.Fragments.GroupChatsFragment;
 import com.example.tifigosocialmedia.Fragments.HomeFragment;
 import com.example.tifigosocialmedia.Fragments.NotificationsFragment;
 import com.example.tifigosocialmedia.Fragments.ProfileFragment;
@@ -33,6 +37,8 @@ public class DashboardActivity extends AppCompatActivity {
 
     String mUID;
 
+    private BottomNavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +50,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        BottomNavigationView navigationView = findViewById(R.id.navigation);
+        navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(selectedListener);
 
         actionBar.setTitle("Домашняя страница");
@@ -107,18 +113,44 @@ public class DashboardActivity extends AppCompatActivity {
                             ft4.commit();
                             return  true;
 
-                        case R.id.nav_notification:
-                            actionBar.setTitle("Уведомления");
-                            NotificationsFragment fragment5 = new NotificationsFragment();
-                            FragmentTransaction ft5 = getSupportFragmentManager().beginTransaction();
-                            ft5.replace(R.id.content, fragment5, "");
-                            ft5.commit();
+                        case R.id.nav_more:
+                            showMoreOptions();
                             return  true;
                     }
 
                     return false;
                 }
             };
+
+    private void showMoreOptions() {
+        PopupMenu popupMenu = new PopupMenu(this, navigationView, Gravity.END);
+        popupMenu.getMenu().add(Menu.NONE, 0, 0, "Notifications");
+        popupMenu.getMenu().add(Menu.NONE, 1, 0, "Group Chats");
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
+                if (id == 0){
+                    //notifications
+                    actionBar.setTitle("Уведомления");
+                    NotificationsFragment fragment5 = new NotificationsFragment();
+                    FragmentTransaction ft5 = getSupportFragmentManager().beginTransaction();
+                    ft5.replace(R.id.content, fragment5, "");
+                    ft5.commit();
+                }else if (id == 1){
+                    //group
+                    actionBar.setTitle("Групповые чаты");
+                    GroupChatsFragment fragment6 = new GroupChatsFragment();
+                    FragmentTransaction ft6 = getSupportFragmentManager().beginTransaction();
+                    ft6.replace(R.id.content, fragment6, "");
+                    ft6.commit();
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
+    }
 
     private void checkUserStatus(){
         FirebaseUser user = firebaseAuth.getCurrentUser();

@@ -17,8 +17,8 @@
         android:title="Чаты"
         android:icon="@drawable/ic_chat_black"/>
 
-    <item android:id="@+id/nav_notification"
-        android:title="Уведомления"
-        android:icon="@drawable/ic_notification_black"/>
+    <item android:id="@+id/nav_more"
+        android:title="More"
+        android:icon="@drawable/ic_more_black"/>
 
 </menu>
