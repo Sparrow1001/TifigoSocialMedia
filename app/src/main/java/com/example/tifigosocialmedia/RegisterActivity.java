@@ -124,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                     reference.child(uid).child("isAdmin").setValue(false);
 
                     Toast.makeText(RegisterActivity.this, "Registered...\n"+user.getEmail(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(RegisterActivity.this, DashboardActivity.class));
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     finish();
 
                 } else {

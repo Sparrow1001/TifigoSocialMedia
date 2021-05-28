@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import com.example.tifigosocialmedia.Adapters.AdapterUsers;
+import com.example.tifigosocialmedia.GroupCreateActivity;
 import com.example.tifigosocialmedia.MainActivity;
 import com.example.tifigosocialmedia.Models.ModelUsers;
 import com.example.tifigosocialmedia.R;
@@ -222,6 +223,9 @@ public class UsersFragment extends Fragment {
         }
         else if(id == R.id.action_settings){
             startActivity(new Intent(getActivity(), SettingsActivity.class));
+        }
+        else if(id == R.id.action_create_group){
+            startActivity(new Intent(getActivity(), GroupCreateActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

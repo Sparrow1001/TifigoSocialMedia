@@ -95,7 +95,7 @@ public class ModelUsers {
         this.typingTo = typingTo;
     }
 
-    public boolean isBlocked() {
+    public boolean getIsBlocked() {
         return isBlocked;
     }
 

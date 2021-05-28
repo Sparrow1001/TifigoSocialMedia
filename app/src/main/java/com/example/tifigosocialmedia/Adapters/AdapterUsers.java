@@ -149,7 +149,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
         myHolder.blockIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (usersList.get(i).isBlocked()){
+                if (usersList.get(i).getIsBlocked()){
                     unBlockUser(hisUID);
                 }else {
                     blockUser(hisUID);

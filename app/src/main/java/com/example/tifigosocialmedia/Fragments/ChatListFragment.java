@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.SearchView;
 
 import com.example.tifigosocialmedia.Adapters.AdapterChatlist;
+import com.example.tifigosocialmedia.GroupCreateActivity;
 import com.example.tifigosocialmedia.MainActivity;
 import com.example.tifigosocialmedia.Models.ModelChat;
 import com.example.tifigosocialmedia.Models.ModelChatlist;
@@ -198,6 +199,9 @@ public class ChatListFragment extends Fragment {
         }
         else if(id == R.id.action_settings){
             startActivity(new Intent(getActivity(), SettingsActivity.class));
+        }
+        else if(id == R.id.action_create_group){
+            startActivity(new Intent(getActivity(), GroupCreateActivity.class));
         }
 
 
