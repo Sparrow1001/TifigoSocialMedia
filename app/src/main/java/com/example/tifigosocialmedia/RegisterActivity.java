@@ -112,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
                     hashMap.put("name", name);
                     hashMap.put("onlineStatus", "online");
                     hashMap.put("typingTo", "noOne");
-                    hashMap.put("phone", phone);
+                    hashMap.put("phone", ""+phone);
                     hashMap.put("image", "");
                     hashMap.put("cover", "");
                     hashMap.put("isAdmin", "");
