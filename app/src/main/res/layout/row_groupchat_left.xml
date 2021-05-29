@@ -34,7 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:text="Time"
-        android:layout_below="@id/messageTv"
         android:layout_marginEnd="5dp"
         android:textSize="12sp"/>
 

@@ -184,6 +184,7 @@ public class ChatListFragment extends Fragment {
 
         //hide addpost
         menu.findItem(R.id.action_add_post).setVisible(false);
+        menu.findItem(R.id.action_add_participant).setVisible(false);
 
         super.onCreateOptionsMenu(menu, inflater);
     }

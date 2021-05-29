@@ -10,7 +10,7 @@
         android:icon="@drawable/ic_profile_black"/>
 
     <item android:id="@+id/nav_users"
-        android:title="Пользователи"
+        android:title="Люди"
         android:icon="@drawable/ic_users_black"/>
 
     <item android:id="@+id/nav_chat"
@@ -18,7 +18,7 @@
         android:icon="@drawable/ic_chat_black"/>
 
     <item android:id="@+id/nav_more"
-        android:title="More"
+        android:title="Больше"
         android:icon="@drawable/ic_more_black"/>
 
 </menu>

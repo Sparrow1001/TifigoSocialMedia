@@ -98,7 +98,7 @@ public class DashboardActivity extends AppCompatActivity {
                             return  true;
 
                         case R.id.nav_users:
-                            actionBar.setTitle("Пользователи");
+                            actionBar.setTitle("Люди");
                             UsersFragment fragment3 = new UsersFragment();
                             FragmentTransaction ft3 = getSupportFragmentManager().beginTransaction();
                             ft3.replace(R.id.content, fragment3, "");
@@ -124,8 +124,8 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void showMoreOptions() {
         PopupMenu popupMenu = new PopupMenu(this, navigationView, Gravity.END);
-        popupMenu.getMenu().add(Menu.NONE, 0, 0, "Notifications");
-        popupMenu.getMenu().add(Menu.NONE, 1, 0, "Group Chats");
+        popupMenu.getMenu().add(Menu.NONE, 0, 0, "Уведомления");
+        popupMenu.getMenu().add(Menu.NONE, 1, 0, "Групповые чаты");
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
