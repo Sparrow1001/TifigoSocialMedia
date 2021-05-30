@@ -39,7 +39,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
 
     FirebaseAuth firebaseAuth;
     String myUid;
-    boolean isAdmin = false;
+    String isAdmin = "no";
 
     public AdapterUsers(Context context, List<ModelUsers> usersList) {
         this.context = context;
@@ -86,7 +86,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ModelUsers user = dataSnapshot.getValue(ModelUsers.class);
                 assert user != null;
-                isAdmin = user.getIsAdmin();
+                isAdmin = ""+user.getIsAdmin();
             }
 
             @Override
@@ -104,7 +104,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                if (isAdmin){
+                if (isAdmin.equals("yes")){
                     builder.setItems(new String[]{"Профиль", "Чат", "Удалить пользователя"}, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

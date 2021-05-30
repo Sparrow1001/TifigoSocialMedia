@@ -43,7 +43,7 @@ public class AdminLoginActivity extends AppCompatActivity {
     Button mLoginBtn;
 
     String myUid;
-    boolean isAdmin = false;
+    String isAdmin = "no";
 
     private FirebaseAuth mAuth;
 
@@ -168,8 +168,6 @@ public class AdminLoginActivity extends AppCompatActivity {
 
     private void loginUser(String email, String passw) {
 
-
-
         mAuth.signInWithEmailAndPassword(email, passw).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
             @Override
@@ -189,7 +187,7 @@ public class AdminLoginActivity extends AppCompatActivity {
 
                             ModelUsers user = dataSnapshot.getValue(ModelUsers.class);
                             assert user != null;
-                            isAdmin = user.getIsAdmin();
+                            isAdmin = ""+user.getIsAdmin();
 
                         }
 
@@ -200,7 +198,7 @@ public class AdminLoginActivity extends AppCompatActivity {
                     });
 
 
-                    if (isAdmin){
+                    if (isAdmin.equals("yes")){
                         pd.setMessage("Logging In...");
                         pd.show();
                         startActivity(new Intent(AdminLoginActivity.this, DashboardActivity.class));

@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
 
     TextView mNameTv;
 
-    boolean isAdmin = false;
+    String isAdmin = "no";
 
     String myUid;
 
@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ModelUsers user = dataSnapshot.getValue(ModelUsers.class);
-                isAdmin = user.getIsAdmin();
+                isAdmin = ""+user.getIsAdmin();
             }
 
             @Override
@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        if(isAdmin){
+        if(isAdmin.equals("yes")){
             mNameTv.setTextColor(Color.BLUE);
         }
 

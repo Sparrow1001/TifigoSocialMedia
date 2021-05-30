@@ -2,14 +2,14 @@ package com.example.tifigosocialmedia.Models;
 
 public class ModelUsers {
 
-    String name, email, search, phone, image, cover, uid, onlineStatus, typingTo;
-    boolean isBlocked = false, isAdmin = false;
+    String name, email, search, phone, image, cover, uid, onlineStatus, typingTo, isAdmin;
+    boolean isBlocked = false;
 
 
     public ModelUsers() {
     }
 
-    public ModelUsers(String name, String email, String search, String phone, String image, String cover, String uid, String onlineStatus, String typingTo, boolean isBlocked, boolean isAdmin) {
+    public ModelUsers(String name, String email, String search, String phone, String image, String cover, String uid, String onlineStatus, String typingTo, boolean isBlocked, String isAdmin) {
         this.name = name;
         this.email = email;
         this.search = search;
@@ -103,11 +103,11 @@ public class ModelUsers {
         isBlocked = blocked;
     }
 
-    public boolean getIsAdmin() {
+    public String getIsAdmin() {
         return isAdmin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setAdmin(String admin) {
         isAdmin = admin;
     }
 }

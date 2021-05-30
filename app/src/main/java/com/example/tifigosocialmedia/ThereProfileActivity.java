@@ -83,13 +83,13 @@ public class ThereProfileActivity extends AppCompatActivity {
                     String phone = ""+ds.child("phone").getValue();
                     String image = ""+ds.child("image").getValue();
                     String cover = ""+ds.child("cover").getValue();
-                    boolean isAdmin = (boolean) ds.child("isAdmin").getValue();
+                    String isAdmin = ""+ds.child("isAdmin").getValue();
 
                     nameTv.setText(name);
                     emailTv.setText(email);
                     phoneTv.setText(phone);
 
-                    if(isAdmin){
+                    if(isAdmin.equals("yes")){
                         nameTv.setTextColor(Color.BLUE);
                     }
 

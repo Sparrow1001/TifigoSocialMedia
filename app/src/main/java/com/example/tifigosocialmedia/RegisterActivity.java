@@ -115,13 +115,12 @@ public class RegisterActivity extends AppCompatActivity {
                     hashMap.put("phone", ""+phone);
                     hashMap.put("image", "");
                     hashMap.put("cover", "");
-                    hashMap.put("isAdmin", "");
+                    hashMap.put("isAdmin", "no");
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference reference = database.getReference("Users");
                     reference.child(uid).setValue(hashMap);
 
-                    reference.child(uid).child("isAdmin").setValue(false);
 
                     Toast.makeText(RegisterActivity.this, "Registered...\n"+user.getEmail(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));

@@ -45,7 +45,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
     List<ModelChat> chatList;
     String imageUrl;
 
-    boolean isAdmin = false;
+    String isAdmin = "no";
 
     String myUid;
 
@@ -168,7 +168,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ModelUsers user = dataSnapshot.getValue(ModelUsers.class);
                 assert user != null;
-                isAdmin = user.getIsAdmin();
+                isAdmin = ""+user.getIsAdmin();
             }
 
             @Override
@@ -177,7 +177,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
             }
         });
 
-        if(isAdmin){
+        if(isAdmin.equals("yes")){
             myHolder.nameTv.setTextColor(Color.BLUE);
         }
 
@@ -193,7 +193,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    if (ds.child("sender").getValue().equals(myUID) || isAdmin){
+                    if (ds.child("sender").getValue().equals(myUID) || isAdmin.equals("yes")){
                         ds.getRef().removeValue();
                         Toast.makeText(context, "сообщение удалено", Toast.LENGTH_SHORT).show();
                     }else {

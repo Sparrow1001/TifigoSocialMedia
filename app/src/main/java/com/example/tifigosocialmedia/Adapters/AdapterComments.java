@@ -35,7 +35,7 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
     List<ModelComment> commentList;
     String myUid, postId;
 
-    boolean isAdmin = false;
+    String isAdmin = "no";
 
     public AdapterComments(Context context, List<ModelComment> commentList, String myUid, String postId) {
         this.context = context;
@@ -88,7 +88,7 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
         myHolder.commentTv.setText(comment);
         myHolder.timeTv.setText(pTime);
 
-        if(isAdmin){
+        if(isAdmin.equals("yes")){
             myHolder.nameTv.setTextColor(Color.BLUE);
         }
 
@@ -99,7 +99,7 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
         myHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (myUid.equals(uid) || isAdmin){
+                if (myUid.equals(uid) || isAdmin.equals("yes")){
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView()
                             .getContext());
                     builder.setTitle("Delete");

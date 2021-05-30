@@ -65,7 +65,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     List<ModelPost> postList;
 
     String myUid;
-    boolean isAdmin;
+    String isAdmin = "no";
 
     private DatabaseReference likesRef;
     private DatabaseReference postsRef;
@@ -147,7 +147,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ModelUsers user = dataSnapshot.getValue(ModelUsers.class);
                 assert user != null;
-                isAdmin = user.getIsAdmin();
+                isAdmin = ""+user.getIsAdmin();
             }
 
             @Override
@@ -157,7 +157,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         });
 
 
-        if(isAdmin){
+        if(isAdmin.equals("yes")){
             myHolder.uNameTv.setTextColor(Color.BLUE);
         }
 
@@ -363,7 +363,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         PopupMenu popupMenu = new PopupMenu(context, moreBtn, Gravity.END);
 
 
-        if (uid.equals(myUid) || isAdmin){
+        if (uid.equals(myUid) || isAdmin.equals("yes")){
             popupMenu.getMenu().add(Menu.NONE, 0, 0, "Удалить");
             popupMenu.getMenu().add(Menu.NONE, 1, 0, "Изменить");
         }
