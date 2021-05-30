@@ -303,6 +303,7 @@ public class GroupCreateActivity extends AppCompatActivity {
                     }
                 }
             }
+            break;
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
