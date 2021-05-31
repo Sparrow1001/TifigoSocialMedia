@@ -411,6 +411,7 @@ public class AddPostActivity extends AppCompatActivity {
     }
 
     private void uploadData(String title, String description) {
+
         pd.setMessage("Publishing post...");
         pd.show();
 
@@ -456,20 +457,37 @@ public class AddPostActivity extends AppCompatActivity {
                                 ref.child(timeStamp).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        pd.dismiss();
-                                        Toast.makeText(AddPostActivity.this, "Post published", Toast.LENGTH_SHORT).show();
+                                        try {
+                                            if ((pd != null) && pd.isShowing()) {
+                                                pd.dismiss();
+                                                Toast.makeText(AddPostActivity.this, "Post published", Toast.LENGTH_SHORT).show();
 
-                                        titleEt.setText("");
-                                        descriptionEt.setText("");
-                                        imageIv.setImageURI(null);
-                                        image_uri =null;
+                                                titleEt.setText("");
+                                                descriptionEt.setText("");
+                                                imageIv.setImageURI(null);
+                                                image_uri =null;
 
-                                        prepareNotification(""+timeStamp, ""+ name + " добавил новый пост", ""+title+"\n"+description, "PostNotification", "POST");
+                                                prepareNotification(""+timeStamp, " "+ name + " добавил новый пост", ""+title+"\n"+description, "PostNotification", "POST");
+
+                                            }
+                                        } catch (final IllegalArgumentException e) {
+
+                                        } catch (final Exception e) {
+
+                                        } finally {
+                                            pd = null;
+                                        }
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        pd.dismiss();
+                                        if (pd!=null)
+                                        {
+                                            if (pd.isShowing())
+                                            {
+                                                pd.dismiss();
+                                            }
+                                        }
                                         Toast.makeText(AddPostActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });

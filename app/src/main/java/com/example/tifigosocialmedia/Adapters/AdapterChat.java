@@ -177,10 +177,6 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
             }
         });
 
-        if(isAdmin.equals("yes")){
-            myHolder.nameTv.setTextColor(Color.BLUE);
-        }
-
     }
 
     private void deleteMessage(int position) {
