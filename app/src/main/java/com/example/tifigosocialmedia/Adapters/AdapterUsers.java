@@ -62,8 +62,6 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
     public void onBindViewHolder(@NonNull MyHolder myHolder, final int i) {
 
         final String hisUID = usersList.get(i).getUid();
-        FirebaseUser userC = FirebaseAuth.getInstance().getCurrentUser();
-        String userCheck = userC.getUid();
         String userImage = usersList.get(i).getImage();
         String userName = usersList.get(i).getName();
         final String userEmail = usersList.get(i).getEmail();
@@ -80,7 +78,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
         }
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Users").child(userCheck);
+        DatabaseReference myRef = database.getReference("Users").child(myUid);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

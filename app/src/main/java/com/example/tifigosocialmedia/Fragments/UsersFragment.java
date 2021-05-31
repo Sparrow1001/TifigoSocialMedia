@@ -181,6 +181,7 @@ public class UsersFragment extends Fragment {
         menu.findItem(R.id.action_add_post).setVisible(false);
         menu.findItem(R.id.action_add_participant).setVisible(false);
         menu.findItem(R.id.action_groupinfo).setVisible(false);
+        menu.findItem(R.id.action_logout).setVisible(false);
 
 
         MenuItem item = menu.findItem(R.id.action_search);
@@ -219,11 +220,7 @@ public class UsersFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_logout){
-            firebaseAuth.signOut();
-            checkUserStatus();
-        }
-        else if(id == R.id.action_settings){
+        if(id == R.id.action_settings){
             startActivity(new Intent(getActivity(), SettingsActivity.class));
         }
         else if(id == R.id.action_create_group){

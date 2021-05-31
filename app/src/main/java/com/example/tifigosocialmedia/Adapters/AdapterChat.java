@@ -3,8 +3,6 @@ package com.example.tifigosocialmedia.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tifigosocialmedia.Models.ModelChat;
 import com.example.tifigosocialmedia.Models.ModelUsers;
 import com.example.tifigosocialmedia.R;
-import com.example.tifigosocialmedia.ThereProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +31,6 @@ import com.squareup.picasso.Picasso;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
 
@@ -151,7 +146,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
 
         //status of message
         if (i == chatList.size() - 1){
-            if (chatList.get(i).isSeen()){
+            if (chatList.get(i).getIsSeen()){
                 myHolder.isSeenTv.setText("Просмотрено");
             }else {
                 myHolder.isSeenTv.setText("Доставлено");

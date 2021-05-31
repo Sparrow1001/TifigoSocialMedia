@@ -58,11 +58,11 @@ public class ModelChat {
         this.type = type;
     }
 
-    public boolean isSeen() {
+    public boolean getIsSeen() {
         return isSeen;
     }
 
-    public void setSeen(boolean seen) {
+    public void setIsSeen(boolean seen) {
         isSeen = seen;
     }
 }
